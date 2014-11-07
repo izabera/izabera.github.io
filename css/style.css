@@ -23,3 +23,8 @@ a:hover {
   color: #fff;
 }
 
+
+#timestamp {
+  position: relative;
+  float: right;
+}

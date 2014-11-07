@@ -95,8 +95,8 @@ for file in *; do
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')" #with no extension
   timestamp="$(date '+%c' -d @${file%-*})"
   sed "s/XXX/$title/" < ../blog/head > ../html/"$newfile".html
-  [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> ../html/"$newfile".html
   python -m markdown "$file" >> ../html/"$newfile".html
+  [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> ../html/"$newfile".html
   echo "<a href='/'>Back</a>" >> ../html/"$newfile".html
   cat ../blog/bottom >> ../html/"$newfile".html
   (( count++ ))
