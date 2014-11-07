@@ -1,0 +1,25 @@
+body {
+  background-color: rgb(61, 61, 61);
+  color: rgb(85, 85, 85);
+  font-family: sans-serif;
+  font-size: 12px;
+  margin: 0px;
+  border: 0px;
+  padding: 7px;
+}
+
+
+a {
+  color: inherit;
+  -webkit-transition: color 500ms ease;
+  -moz-transition: color 500ms ease;
+  -o-transition: color 500ms ease;
+  transition: color 500ms ease;
+  text-decoration: none;
+}
+
+
+a:hover {
+  color: #fff;
+}
+
