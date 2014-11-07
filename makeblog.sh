@@ -20,7 +20,7 @@ function printbar () {
 
 
 function disqussify () {
-  if [[ "$disqus" == "true" ]]; then
+  if [[ "$disqusplugin" == "true" ]]; then
     echo "<div class='container' id='disqus_thread'></div>" > disqus
     echo "<script type='text/javascript'>" >> disqus
     echo "  var disqus_shortname = '$disqus_name';" >> disqus
@@ -110,5 +110,5 @@ echo
 cd ..
 cat blog/indexhead temp/index blog/indexbottom > index.html
 rm -rf temp
-git add -A && git commit -m "$(date)" && git push
+[[ "$gitplugin" == "true" ]] && git add -A && git commit -m "$(date)" && git push
 

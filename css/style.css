@@ -28,3 +28,9 @@ a:hover {
   position: relative;
   float: right;
 }
+
+
+code {
+  font-family: Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace;
+}
+
