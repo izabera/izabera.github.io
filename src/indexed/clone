@@ -12,7 +12,6 @@ If you enable git (`gitplugin=true` in your `blog/settings`), your content will 
 
 
 
-NB: The very first line of your file should contain the title, the very second should be a line of equal signs.
---
+###NB: The very first line of your file should contain the title, the very second should be a line of equal signs.
 
 
