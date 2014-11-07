@@ -35,3 +35,11 @@ code {
   color: rgb(210, 210, 210);
 }
 
+hr {
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, rgba(200,200,200,0), rgba(200,200,200,0.75), rgba(200,200,200,0)); 
+  background-image:    -moz-linear-gradient(left, rgba(200,200,200,0), rgba(200,200,200,0.75), rgba(200,200,200,0)); 
+  background-image:     -ms-linear-gradient(left, rgba(200,200,200,0), rgba(200,200,200,0.75), rgba(200,200,200,0)); 
+  background-image:      -o-linear-gradient(left, rgba(200,200,200,0), rgba(200,200,200,0.75), rgba(200,200,200,0)); 
+}
