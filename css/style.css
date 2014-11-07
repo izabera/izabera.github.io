@@ -49,4 +49,10 @@ hr {
 
 h1 {
   text-align: center;
+  font-family: 'Lobster', Georgia, Times, serif;
+}
+
+
+p {
+  font-family: 'Cabin', Helvetica, Arial, sans-serif;
 }
