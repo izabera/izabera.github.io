@@ -101,7 +101,7 @@ echo
 
 
 #markdownify
-cd ../temp
+cd ../../temp
 count=0
 printbar $count $total "  Markdown conversion"
 for file in $(sort -r list); do
