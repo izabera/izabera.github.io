@@ -1,0 +1,19 @@
+A blog on Github
+==
+
+The idea behind Github Pages is kewl. I didn't really like Jekill, tho.
+I made a bash script that generates a blog-like platform from a bunch of Markdown files.
+As of now, it's not as fancy as the default blog you get with Jekill.
+But I made it myself, and I'm happy with the result.
+
+
+Features
+---
+
+1. Convert Markdown files to HTML (I'm using python's markdown package but any could be used)
+2. Display them in an index page
+  - Files are sorted by modification date
+  - A small preview is configurable
+3. Disqus support
+4. Git integration, just run `makeblog.sh` and it will even push to Github.
+
