@@ -35,11 +35,11 @@ a:hover {
 code {
   font-family: Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace;
   color: rgb(210, 210, 210);
-  background-color: rgb(20, 20, 20);
+  background-color: rgb(30, 30, 30);
   padding: 2px;
-  -webkit-border-radius: 10px;
-  -moz-border-radius: 10px;
-  border-radius: 10px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 
 }
 
