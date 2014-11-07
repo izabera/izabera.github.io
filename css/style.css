@@ -37,6 +37,10 @@ code {
   color: rgb(210, 210, 210);
   background-color: rgb(20, 20, 20);
   padding: 2px;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+
 }
 
 hr {
