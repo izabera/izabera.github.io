@@ -43,7 +43,7 @@ function generateindex () {
   echo -n "'>" >> index
   head -n1 "$file" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' >> index
   echo "</a></h2>" >> index
-  [[ "$show_date_in_index" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> index
+  [[ "$show_date_in_index" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/indextimestamp >> index
   if (( preview_words > 0 )); then
     echo "<p>" >> index
     sed '1,2d' "$file" | while read line; do
