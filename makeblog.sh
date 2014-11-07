@@ -106,7 +106,7 @@ printbar $count $total "  Markdown conversion"
 for file in $(sort -r unlist); do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')" #with no extension
-  timestamp="$(date '+%c' -d @${file:2:10})"
+  timestamp="$(date "$dateformat" -d @${file:2:10})"
   sed "s/XXX/$title/" < ../blog/head > ../html/"$newfile".html
   python -m markdown "$file" >> ../html/"$newfile".html
   [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> ../html/"$newfile".html
@@ -118,7 +118,7 @@ done
 for file in $(sort -r list); do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')" #with no extension
-  timestamp="$(date '+%c' -d @${file:2:10})"
+  timestamp="$(date "$dateformat" -d @${file:2:10})"
   sed "s/XXX/$title/" < ../blog/head > ../html/"$newfile".html
   python -m markdown "$file" >> ../html/"$newfile".html
   [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> ../html/"$newfile".html
