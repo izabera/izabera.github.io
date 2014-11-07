@@ -36,6 +36,7 @@ code {
   font-family: Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace;
   color: rgb(210, 210, 210);
   background-color: rgb(20, 20, 20);
+  padding: 2px;
 }
 
 hr {
