@@ -18,7 +18,7 @@ a, h1, h2, h3, h4, h5, h6 {
 
 
 a {
-  color: inherit;
+  color: rgb(226, 61, 128);
   -webkit-transition: color 500ms ease;
   -moz-transition: color 500ms ease;
   -o-transition: color 500ms ease;
@@ -73,6 +73,7 @@ hr {
   font-family: 'Lobster', Georgia, Times, serif;
   text-shadow: 0px 0px 5px rgba(150, 150, 150, 0.7);
   font-size: 40px;
+  color: rgb(226, 61, 128);
 }
 
 
