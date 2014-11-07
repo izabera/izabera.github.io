@@ -79,7 +79,7 @@ cd ../src
 cd indexed
 total=$(ls | wc -l)
 cd ../notindexed
-total=(( total + $(ls | wc -l) ))
+total=(( $total + $(ls | wc -l) ))
 count=0
 printbar $count $total "        Copying files"
 for file in *; do
