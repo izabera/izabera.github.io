@@ -60,6 +60,7 @@ function generateindex () {
 
 
 #prepare
+[ -z "$1" ] && message=$(date) || message="$1"
 rm -rf temp html 2> /dev/null && mkdir temp html
 cd blog
 source settings
@@ -135,5 +136,5 @@ cd ..
 sed -i "s/XXX/index/" blog/head
 cat blog/head temp/index blog/defaults/bottom > index.html
 rm -rf temp
-[[ "$gitplugin" == "true" ]] && git add -A && git commit -m "$(date)" && git push
+[[ "$gitplugin" == "true" ]] && git add -A && git commit -m "$message" && git push
 
