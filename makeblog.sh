@@ -52,7 +52,7 @@ function generateindex () {
         (( wordcount++ ))
       done
     done
-    echo "</p><hr>" >> index
+    echo "...</p><hr>" >> index
   fi
 }
 
@@ -79,7 +79,9 @@ count=0
 printbar $count $total "        Copying files"
 for file in *; do
   #with timestamp, when bash will glob our files they'll be sorted by date 
-  cp "$file" $(mktemp -u -p ../temp/ "$(date '+%s' -r "$file")-XXXXXXXX")
+  newfile=$(mktemp -u -p ../temp/ "$(date '+%s' -r "$file")-XXXXXXXX")
+  cp "$file" "$newfile"
+  echo "$newfile" >> ../temp/list
   (( count++ ))
   printbar $count $total "        Copying files"
 done
@@ -90,7 +92,7 @@ echo
 cd ../temp
 count=0
 printbar $count $total "  Markdown conversion"
-for file in *; do
+for file in $(tac list); do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')" #with no extension
   timestamp="$(date '+%c' -d @${file%-*})"
