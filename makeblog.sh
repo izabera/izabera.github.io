@@ -93,7 +93,7 @@ cd ../indexed
 for file in *; do
   newfile=$(mktemp -u -p . "$(date '+%s' -r "$file")-XXXXXXXX")
   cp "$file" ../../temp/"$newfile"
-  echo "$newfile" >> ../temp/list
+  echo "$newfile" >> ../../temp/list
   (( count++ ))
   printbar $count $total "        Copying files"
 done
