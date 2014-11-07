@@ -1,0 +1,18 @@
+Using this blog
+==
+
+Download it with `git clone http://github.com/izabera/izablog.git`.
+
+Now you can store your Markdown files in the `src` directory.
+
+When you're ready to publish it, reload your blog by running `makeblog.sh`.
+
+If you enable git (`gitplugin=true` in your `blog/settings`), your content will be committed and pushed too.
+
+
+
+
+NB: The very first line of your file should contain the title, the very second should be a line of equal signs.
+--
+
+

@@ -38,11 +38,11 @@ function disqussify () {
 
 function generateindex () {
   wordcount=0
-  echo -n "<h2><a href='html/$newfile" >> index
+  echo -n "<h1><a href='html/$newfile" >> index
   [[ "$rewrite_urls" == "false" ]] && echo -n .html >> index
   echo -n "'>" >> index
   head -n1 "$file" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' >> index
-  echo "</a></h2>" >> index
+  echo "</a></h1>" >> index
   [[ "$show_date_in_index" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/indextimestamp >> index
   if (( preview_words > 0 )); then
     echo "<p>" >> index
@@ -52,7 +52,9 @@ function generateindex () {
         (( wordcount++ ))
       done
     done
-    echo "...</p><hr>" >> index
+    echo -n "<a href='html/$newfile" >> index
+    [[ "$rewrite_urls" == "false" ]] && echo -n .html >> index
+    echo -n "'>(Read more)</a></p><hr>" >> index
   fi
 }
 
@@ -74,13 +76,23 @@ mv temp bottom
 
 #copy
 cd ../src
+cd indexed
 total=$(ls | wc -l)
+cd ../notindexed
+total=(( total + $(ls | wc -l) ))
 count=0
 printbar $count $total "        Copying files"
 for file in *; do
   #with timestamp, when bash will glob our files they'll be sorted by date 
   newfile=$(mktemp -u -p . "$(date '+%s' -r "$file")-XXXXXXXX")
-  cp "$file" ../temp/"$newfile"
+  cp "$file" ../../temp/"$newfile"
+  (( count++ ))
+  printbar $count $total "        Copying files"
+done
+cd ../indexed
+for file in *; do
+  newfile=$(mktemp -u -p . "$(date '+%s' -r "$file")-XXXXXXXX")
+  cp "$file" ../../temp/"$newfile"
   echo "$newfile" >> ../temp/list
   (( count++ ))
   printbar $count $total "        Copying files"
