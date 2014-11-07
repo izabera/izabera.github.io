@@ -38,6 +38,16 @@ a:hover {
 }
 
 
+#back {
+  color: rgb(181, 181, 181);
+  background-color: rgb(40, 40, 40);
+  padding: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+}
+
+
 code {
   font-family: Consolas, "Bitstream Vera Sans Mono", "Andale Mono", Monaco, "DejaVu Sans Mono", "Lucida Console", monospace;
   color: rgb(210, 210, 210);
