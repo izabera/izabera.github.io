@@ -52,7 +52,7 @@ function generateindex () {
         (( wordcount++ ))
       done
     done
-    echo "</p>" >> index
+    echo "</p><hr>" >> index
   fi
 }
 
@@ -97,6 +97,7 @@ for file in *; do
   sed "s/XXX/$title/" < ../blog/head > ../html/"$newfile".html
   [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> ../html/"$newfile".html
   python -m markdown "$file" >> ../html/"$newfile".html
+  echo "<a href='/'>Back</a>" >> ../html/"$newfile".html
   cat ../blog/bottom >> ../html/"$newfile".html
   (( count++ ))
   printbar $count $total "  Markdown conversion"
