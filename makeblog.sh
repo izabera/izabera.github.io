@@ -62,6 +62,7 @@ function generateindex () {
 #prepare
 [ -z "$1" ] && message=$(date) || message="$1"
 rm -rf temp html 2> /dev/null && mkdir temp html
+mkdir -p src/indexed src/notindexed
 cd blog
 source settings
 cp defaults/head head
