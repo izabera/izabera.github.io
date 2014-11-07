@@ -92,7 +92,7 @@ echo
 cd ../temp
 count=0
 printbar $count $total "  Markdown conversion"
-for file in $(sort list); do
+for file in $(sort -r list); do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')" #with no extension
   timestamp="$(date '+%c' -d @${file:2:10})"
