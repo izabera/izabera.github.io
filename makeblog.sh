@@ -43,7 +43,7 @@ function generateindex () {
   echo -n "'>" >> index
   head -n1 "$file" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' >> index
   echo "</a></h1>" >> index
-  [[ "$show_date_in_index" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/indextimestamp >> index
+  [[ "$show_date_in_index" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> index
   if (( preview_words > 0 )); then
     echo "<p>" >> index
     sed '1,2d' "$file" | while read line; do
@@ -64,11 +64,8 @@ rm -rf temp html 2> /dev/null && mkdir temp html
 cd blog
 source settings
 cp defaults/head head
-cp defaults/indexhead indexhead
 cp defaults/bottom bottom
-cp defaults/indexbottom indexbottom
 sed -i "s/YYY/$title/" head
-sed -i "s/YYY/$title/" indexhead
 disqussify
 cat disqus bottom > temp
 mv temp bottom
@@ -135,7 +132,8 @@ echo
 
 #create index and finish
 cd ..
-cat blog/indexhead temp/index blog/indexbottom > index.html
+sed -i "s/XXX/index/" blog/head
+cat blog/head temp/index blog/bottom > index.html
 rm -rf temp
 [[ "$gitplugin" == "true" ]] && git add -A && git commit -m "$(date)" && git push
 
