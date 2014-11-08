@@ -80,8 +80,10 @@ cd indexed
 total=$(ls | wc -l)
 cd ../notindexed
 total=$(( total + $(ls | wc -l) ))
+[[ "$total" -eq 0 ]] && echo "Nothing to do" && exit
 count=0
 printbar $count $total "        Copying files"
+shopt -s nullglob
 for file in *; do
   #with timestamp, when bash will glob our files they'll be sorted by date 
   newfile=$(mktemp -u -p . "$(date '+%s' -r "$file")-XXXXXXXX")
