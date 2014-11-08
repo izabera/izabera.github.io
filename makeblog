@@ -39,7 +39,7 @@ function disqussify () {
 function generateindex () {
   wordcount=0
   echo -n "<h1><a href='html/$newfile" >> ../index
-  [[ "$rewrite_urls" == "false" ]] && echo -n .html >> ../index
+  [[ "$rewrite_urls" != "true" ]] && echo -n .html >> ../index
   echo -n "'>" >> ../index
   head -n1 "$file" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' >> ../index
   echo "</a></h1>" >> ../index

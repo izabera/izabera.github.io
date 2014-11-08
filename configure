@@ -1,8 +1,10 @@
 #!/bin/bash
 
 shopt -s extglob
+chmod +x makeblog
 rm -rf !(configure|makeblog|README.md|LICENSE|css|blog)
 mkdir -p src/indexed src/notindexed
+
 
 echo "Hello Blog!" > src/indexed/hello
 echo "===========" >> src/indexed/hello
@@ -48,6 +50,9 @@ done
 echo "Enable Apache ModRewrite plugin: "
 select rewrite_urls in true false; do
   echo "rewrite_urls=$rewrite_urls" >> blog/settings
+  echo "RewriteEngine On" > .htaccess
+  echo "RewriteRule ^$ /index.html" >> .htaccess
+  echo 'RewriteRule ^(.*)$ $1.html' >> .htaccess
   break
 done
 
@@ -57,7 +62,11 @@ select gitplugin in true false; do
   break
 done
 
-echo "Cleanup complete, your blog is now ready"
+
+./makeblog
+
+
+echo "Configure complete, your blog is now ready"
 echo "Your settings have been saved in blog/settings"
 echo "Add your first article in src/indexed"
 echo "When you're ready to publish, run makeblog"
