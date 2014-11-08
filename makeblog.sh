@@ -38,30 +38,30 @@ function disqussify () {
 
 function generateindex () {
   wordcount=0
-  echo -n "<h1><a href='html/$newfile" >> index
-  [[ "$rewrite_urls" == "false" ]] && echo -n .html >> index
-  echo -n "'>" >> index
-  head -n1 "$file" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' >> index
-  echo "</a></h1>" >> index
-  [[ "$show_date_in_index" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> index
+  echo -n "<h1><a href='html/$newfile" >> ../index
+  [[ "$rewrite_urls" == "false" ]] && echo -n .html >> ../index
+  echo -n "'>" >> ../index
+  head -n1 "$file" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' >> ../index
+  echo "</a></h1>" >> ../index
+  [[ "$show_date_in_index" == "true" ]] && sed "s/XXX/$timestamp/" < ../../blog/timestamp >> ../index
   if (( preview_words > 0 )); then
-    echo "<p>" >> index
+    echo "<p>" >> ../index
     sed '1,2d' "$file" | while read line; do
       for word in $line; do
-        (( wordcount < preview_words )) && echo $word >> index
+        (( wordcount < preview_words )) && echo $word >> ../index
         (( wordcount++ ))
       done
     done
-    echo -n "<a href='html/$newfile" >> index
-    [[ "$rewrite_urls" == "false" ]] && echo -n .html >> index
-    echo -n "'>(Read more)</a></p><hr>" >> index
+    echo -n "<a href='html/$newfile" >> ../index
+    [[ "$rewrite_urls" == "false" ]] && echo -n .html >> ../index
+    echo -n "'>(Read more)</a></p><hr>" >> ../index
   fi
 }
 
 
 #prepare
 [ -z "$1" ] && message=$(date) || message="$1"
-rm -rf temp html 2> /dev/null && mkdir temp html
+rm -rf temp html 2> /dev/null && mkdir -p temp/listed temp/unlisted html
 mkdir -p src/indexed src/notindexed
 cd blog
 source settings
@@ -87,15 +87,14 @@ shopt -s nullglob
 for file in *; do
   #with timestamp, when bash will glob our files they'll be sorted by date 
   newfile=$(mktemp -u -p . "$(date '+%s' -r "$file")-XXXXXXXX")
-  cp "$file" ../../temp/"$newfile"
-  echo "$newfile" >> ../../temp/unlist
+  cp "$file" ../../temp/unlisted/"$newfile"
   (( count++ ))
   printbar $count $total "        Copying files"
 done
 cd ../indexed
 for file in *; do
   newfile=$(mktemp -u -p . "$(date '+%s' -r "$file")-XXXXXXXX")
-  cp "$file" ../../temp/"$newfile"
+  cp "$file" ../../temp/listed/"$newfile"
   echo "$newfile" >> ../../temp/list
   (( count++ ))
   printbar $count $total "        Copying files"
@@ -107,27 +106,29 @@ echo
 cd ../../temp
 count=0
 printbar $count $total "  Markdown conversion"
-for file in $(sort -r unlist); do
+cd unlisted
+for file in *; do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')" #with no extension
-  timestamp="$(date "$dateformat" -d @${file:2:10})"
-  sed "s/XXX/$title/" < ../blog/head > ../html/"$newfile".html
-  python -m markdown "$file" >> ../html/"$newfile".html
-  [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> ../html/"$newfile".html
-  echo "<a href='/' id='back'>Back</a>" >> ../html/"$newfile".html
-  cat ../blog/bottom >> ../html/"$newfile".html
+  timestamp="$(date "$dateformat" -d @${file:0:10})"
+  sed "s/XXX/$title/" < ../../blog/head > ../../html/"$newfile".html
+  python -m markdown "$file" >> ../../html/"$newfile".html
+  [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../../blog/timestamp >> ../../html/"$newfile".html
+  echo "<a href='/' id='back'>Back</a>" >> ../../html/"$newfile".html
+  cat ../../blog/bottom >> ../../html/"$newfile".html
   (( count++ ))
   printbar $count $total "  Markdown conversion"
 done
-for file in $(sort -r list); do
+cd ../listed
+for file in $(sort -r ../list); do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')" #with no extension
   timestamp="$(date "$dateformat" -d @${file:2:10})"
-  sed "s/XXX/$title/" < ../blog/head > ../html/"$newfile".html
-  python -m markdown "$file" >> ../html/"$newfile".html
-  [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../blog/timestamp >> ../html/"$newfile".html
-  echo "<a href='/' id='back'>Back</a>" >> ../html/"$newfile".html
-  cat ../blog/bottom >> ../html/"$newfile".html
+  sed "s/XXX/$title/" < ../../blog/head > ../../html/"$newfile".html
+  python -m markdown "$file" >> ../../html/"$newfile".html
+  [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../../blog/timestamp >> ../../html/"$newfile".html
+  echo "<a href='/' id='back'>Back</a>" >> ../../html/"$newfile".html
+  cat ../../blog/bottom >> ../../html/"$newfile".html
   (( count++ ))
   printbar $count $total "  Markdown conversion"
   generateindex
@@ -136,7 +137,7 @@ echo
 
 
 #create index and finish
-cd ..
+cd ../..
 sed -i "s/XXX/index/" blog/head
 cp blog/defaults/bottom blog/bottom
 sed -i "s/XXX/$owner/" blog/bottom
