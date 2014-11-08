@@ -133,19 +133,19 @@ cd ../listed
 for file in $(sort -r ../list); do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')"
+  timestamp="$(date "$dateformat" -d @${file:2:10})"
   if grep $(sha1sum "$file" | awk '{print $1}') ../../shasums &> /dev/null ; then
     cp ../../old/"$newfile".html ../../html/"$newfile".html
   else
     sha1sum "$file" | awk '{print $1}' >> ../../shasums
-    timestamp="$(date "$dateformat" -d @${file:2:10})"
     sed "s/XXX/$title/" < ../../blog/head > ../../html/"$newfile".html
     python -m markdown "$file" >> ../../html/"$newfile".html
     [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../../blog/timestamp >> ../../html/"$newfile".html
     echo "<a href='/' id='back'>Back</a>" >> ../../html/"$newfile".html
     cat ../../blog/bottom >> ../../html/"$newfile".html
   fi
-    (( count++ ))
-    printbar $count $total "  Markdown conversion"
+  (( count++ ))
+  printbar $count $total "  Markdown conversion"
   generateindex
 done
 echo
