@@ -1,6 +1,7 @@
 #!/bin/bash
 
-rm -rf .git html index.html blog/head blog/bottom src 2> /dev/null
+shopt -s extglob
+rm -rf !(configure|makeblog|README.md|LICENSE|css|blog)
 mkdir -p src/indexed src/notindexed
 
 echo "Hello Blog!" > src/indexed/hello

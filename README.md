@@ -17,6 +17,7 @@ Installation
 --
 
 `git clone https://github.com/izabera/izabera.github.io blog`
+
 `cd blog && ./configure`
 
 Tada! Your blog is now ready. Your settings are saved in `blog/settings` and your post in `src/indexed` (and `src/unindexed`).
