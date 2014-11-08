@@ -8,3 +8,4 @@ show_date_in_index=true
 show_date_in_article=true
 rewrite_urls=false
 gitplugin=true
+gitpush=true

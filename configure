@@ -1,7 +1,6 @@
 #!/bin/bash
 
 shopt -s extglob
-chmod +x makeblog
 rm -rf !(configure|makeblog|README.md|LICENSE|css|blog)
 mkdir -p src/indexed src/notindexed
 
@@ -24,28 +23,30 @@ echo "dateformat='$dateformat'" >> blog/settings
 echo "Enable Disqus plugin: "
 select disqusplugin in true false; do
   echo "disqusplugin=$disqusplugin" >> blog/settings
+  if [[ "$disqusplugin" == "true" ]]; then
+    read -p "Disqus blog name: " disqusplugin
+    echo "disqus_name='$disqusplugin'" >> blog/settings
+  fi
   break
 done
 
-if [[ "$disqusplugin" == "true" ]]; then
-  read -p "Disqus blog name: " disqus_name
-  echo "disqus_name='$disqus_name'" >> blog/settings
-fi
+#read -e -p "Preview words: " -i "7" preview_words
+echo "preview_words=7" >> blog/settings
 
-read -e -p "Preview words: " -i "7" preview_words
-echo "preview_words=$preview_words" >> blog/settings
+#read -e -p "Posts per page: (0 = infinity) " -i "5" posts_index
+echo "posts_index=5" >> blog/settings
 
-echo "Show timestamps in index page: "
-select show_date_in_index in true false; do
-  echo "show_date_in_index=$show_date_in_index" >> blog/settings
-  break
-done
+#echo "Show timestamps in index page: "
+#select show_date_in_index in true false; do
+  echo "show_date_in_index=true" >> blog/settings
+  #break
+#done
 
-echo "Show timestamps in articles: "
-select show_date_in_article in true false; do
-  echo "show_date_in_article=$show_date_in_article" >> blog/settings
-  break
-done
+#echo "Show timestamps in articles: "
+#select show_date_in_article in true false; do
+  echo "show_date_in_article=true" >> blog/settings
+  #break
+#done
 
 echo "Enable Apache ModRewrite plugin: "
 select rewrite_urls in true false; do
@@ -59,10 +60,23 @@ done
 echo "Enable git plugin: "
 select gitplugin in true false; do
   echo "gitplugin=$gitplugin" >> blog/settings
+  echo "Create new repo or clone an existing one? "
+  select gitplugin in new existing; do
+    if [[ "$gitplugin" == "new" ]]; then
+      echo "gitpush=false" >> blog/settings
+      git init
+    elif [[ "$gitplugin" == "existing" ]]; then
+      echo "gitpush=true" >> blog/settings
+      read -p -e "Remote repo: " gitplugin -i "user@host:repo"
+      git clone "$gitplugin"
+    fi
+    break
+  done
   break
 done
 
 
+chmod +x makeblog
 ./makeblog
 
 
@@ -70,3 +84,4 @@ echo "Configure complete, your blog is now ready"
 echo "Your settings have been saved in blog/settings"
 echo "Add your first article in src/indexed"
 echo "When you're ready to publish, run makeblog"
+

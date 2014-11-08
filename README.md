@@ -21,7 +21,7 @@ Run the following:
 `git clone https://github.com/izabera/izabera.github.io blog`  
 `cd blog && chmod +x configure && ./configure`
 
-Tada! Your blog is now ready. Your settings are saved in `blog/settings` and your post in `src/indexed` (and `src/unindexed`).
+Tada! Your blog is now ready. Your settings are saved in `blog/settings` and your posts in `src/indexed` (and `src/unindexed`).
 
 When you add a new post, run `makeblog` to update your index page.
 

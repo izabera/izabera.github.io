@@ -61,7 +61,12 @@ function generateindex () {
 
 
 #prepare
-[ -z "$1" ] && message=$(date) || message="$1"
+if [ -z "$1" ]; then
+  message=$(date)
+else 
+  shift
+  message="$@"
+fi
 rm -rf temp html 2> /dev/null && mkdir -p temp/listed temp/unlisted html
 mkdir -p src/indexed src/notindexed
 cd blog
@@ -144,5 +149,5 @@ cp blog/defaults/bottom blog/bottom
 sed -i "s/XXX/$owner/" blog/bottom
 cat blog/head temp/index blog/bottom > index.html
 rm -rf temp
-[[ "$gitplugin" == "true" ]] && git add -A && git commit -m "$message" && git push
+[[ "$gitplugin" == "true" ]] && git add -A && git commit -m "$message" && [[ "$gitpush" == "true" ]] && git push
 
