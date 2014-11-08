@@ -1,0 +1,62 @@
+#!/bin/bash
+
+rm -rf .git html index.html blog/head blog/bottom src 2> /dev/null
+mkdir -p src/indexed src/notindexed
+
+echo "Hello Blog!" > src/indexed/hello
+echo "===========" >> src/indexed/hello
+echo "" >> src/indexed/hello
+echo "This is my first post" >> src/indexed/hello
+
+
+read -p "Blog title: " title
+echo "title='$title'" > blog/settings
+
+read -p "Owner name: " owner
+echo "owner='$owner'" >> blog/settings
+
+read -e -p "Timestamp format: " -i "+%d %m %Y" dateformat
+echo "dateformat='$dateformat'" >> blog/settings
+
+echo "Enable Disqus plugin: "
+select disqusplugin in true false; do
+  echo "disqusplugin=$disqusplugin" >> blog/settings
+  break
+done
+
+if [[ "$disqusplugin" == "true" ]]; then
+  read -p "Disqus blog name: " disqus_name
+  echo "disqus_name='$disqus_name'" >> blog/settings
+fi
+
+read -e -p "Preview words: " -i "7" preview_words
+echo "preview_words=$preview_words" >> blog/settings
+
+echo "Show timestamps in index page: "
+select show_date_in_index in true false; do
+  echo "show_date_in_index=$show_date_in_index" >> blog/settings
+  break
+done
+
+echo "Show timestamps in articles: "
+select show_date_in_article in true false; do
+  echo "show_date_in_article=$show_date_in_article" >> blog/settings
+  break
+done
+
+echo "Enable Apache ModRewrite plugin: "
+select rewrite_urls in true false; do
+  echo "rewrite_urls=$rewrite_urls" >> blog/settings
+  break
+done
+
+echo "Enable git plugin: "
+select gitplugin in true false; do
+  echo "gitplugin=$gitplugin" >> blog/settings
+  break
+done
+
+echo "Cleanup complete, your blog is now ready"
+echo "Your settings have been saved in blog/settings"
+echo "Add your first article in src/indexed"
+echo "When you're ready to publish, run makeblog"
