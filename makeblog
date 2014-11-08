@@ -66,8 +66,9 @@ if [ -z "$1" ]; then
 else 
   message="$@"
 fi
-rm -rf temp html 2> /dev/null && mkdir -p temp/listed temp/unlisted html
-mkdir -p src/indexed src/notindexed
+rm -rf temp old 2> /dev/null
+mv html old 2> /dev/null
+mkdir -p temp/listed temp/unlisted html src/indexed src/notindexed
 cd blog
 source settings
 cp defaults/head head
@@ -90,7 +91,6 @@ count=0
 printbar $count $total "        Copying files"
 shopt -s nullglob
 for file in *; do
-  #with timestamp, when bash will glob our files they'll be sorted by date 
   newfile=$(mktemp -u -p . "$(date '+%s' -r "$file")-XXXXXXXX")
   cp "$file" ../../temp/unlisted/"$newfile"
   (( count++ ))
@@ -115,27 +115,37 @@ cd unlisted
 for file in *; do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')" #with no extension
-  timestamp="$(date "$dateformat" -d @${file:0:10})"
-  sed "s/XXX/$title/" < ../../blog/head > ../../html/"$newfile".html
-  python -m markdown "$file" >> ../../html/"$newfile".html
-  [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../../blog/timestamp >> ../../html/"$newfile".html
-  echo "<a href='/' id='back'>Back</a>" >> ../../html/"$newfile".html
-  cat ../../blog/bottom >> ../../html/"$newfile".html
+  if grep $(sha1sum "$file" | awk '{print $1}') ../../shasums &> /dev/null ; then
+    cp ../../old/"$newfile".html ../../html/"$newfile".html
+  else
+    sha1sum "$file" | awk '{print $1}' >> ../../shasums
+    timestamp="$(date "$dateformat" -d @${file:0:10})"
+    sed "s/XXX/$title/" < ../../blog/head > ../../html/"$newfile".html
+    python -m markdown "$file" >> ../../html/"$newfile".html
+    [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../../blog/timestamp >> ../../html/"$newfile".html
+    echo "<a href='/' id='back'>Back</a>" >> ../../html/"$newfile".html
+    cat ../../blog/bottom >> ../../html/"$newfile".html
+  fi
   (( count++ ))
   printbar $count $total "  Markdown conversion"
 done
 cd ../listed
 for file in $(sort -r ../list); do
   title="$(head -n1 "$file")"
-  newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')" #with no extension
-  timestamp="$(date "$dateformat" -d @${file:2:10})"
-  sed "s/XXX/$title/" < ../../blog/head > ../../html/"$newfile".html
-  python -m markdown "$file" >> ../../html/"$newfile".html
-  [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../../blog/timestamp >> ../../html/"$newfile".html
-  echo "<a href='/' id='back'>Back</a>" >> ../../html/"$newfile".html
-  cat ../../blog/bottom >> ../../html/"$newfile".html
-  (( count++ ))
-  printbar $count $total "  Markdown conversion"
+  newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc 'a-z-')"
+  if grep $(sha1sum "$file" | awk '{print $1}') ../../shasums &> /dev/null ; then
+    cp ../../old/"$newfile".html ../../html/"$newfile".html
+  else
+    sha1sum "$file" | awk '{print $1}' >> ../../shasums
+    timestamp="$(date "$dateformat" -d @${file:2:10})"
+    sed "s/XXX/$title/" < ../../blog/head > ../../html/"$newfile".html
+    python -m markdown "$file" >> ../../html/"$newfile".html
+    [[ "$show_date_in_article" == "true" ]] && sed "s/XXX/$timestamp/" < ../../blog/timestamp >> ../../html/"$newfile".html
+    echo "<a href='/' id='back'>Back</a>" >> ../../html/"$newfile".html
+    cat ../../blog/bottom >> ../../html/"$newfile".html
+  fi
+    (( count++ ))
+    printbar $count $total "  Markdown conversion"
   generateindex
 done
 echo
@@ -147,6 +157,6 @@ sed -i "s/XXX/index/" blog/head
 cp blog/defaults/bottom blog/bottom
 sed -i "s/XXX/$owner/" blog/bottom
 cat blog/head temp/index blog/bottom > index.html
-rm -rf temp
+rm -rf temp old
 [[ "$gitplugin" == "true" ]] && git add -A && git commit -m "$message" && [[ "$gitpush" == "true" ]] && git push
 
