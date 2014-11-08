@@ -47,6 +47,7 @@ function generateindex () {
   if (( preview_words > 0 )); then
     echo "<p>" >> ../index
     sed '1,2d' "$file" | while read line; do
+      IFS=' '
       for word in $line; do
         (( wordcount < preview_words )) && echo $word >> ../index
         (( wordcount++ ))
