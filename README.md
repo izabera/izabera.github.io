@@ -16,7 +16,10 @@ Features
 Requirements
 ------------
 
-The only true requirement outside of bash is an external markdown converter.
+It should work fine on any GNU/Linux platform.
+I only tested it with GNU utils and probably some parts use GNU extensions.
+
+The only requirement outside of that is an external markdown converter.
 By default, it uses the python pip markdown module. If you absolutely cannot
 use it, you'll have to edit `makeblog` and substitute it with yours.
 
@@ -37,6 +40,5 @@ Your settings are saved in `blog/settings` and your posts in `src/indexed`
 When you add a new post, run `makeblog [message]` to update your index page.
 
 Enabling the git plugin, you'll be prompted whether to clone a repo or create a
-new one. Then, when you run `makeblog`, it will add all the changes, commit
-them and push to the remote if you selected it.
+new one. `makeblog` will then add, commit and push to the remote if necessary.
 
