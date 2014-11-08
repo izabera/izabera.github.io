@@ -80,8 +80,11 @@ chmod +x makeblog
 ./makeblog
 
 
+echo
+echo "*************************************************"
 echo "Configure complete, your blog is now ready"
 echo "Your settings have been saved in blog/settings"
 echo "Add your first article in src/indexed"
 echo "When you're ready to publish, run makeblog"
+echo "*************************************************"
 

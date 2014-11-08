@@ -64,7 +64,6 @@ function generateindex () {
 if [ -z "$1" ]; then
   message=$(date)
 else 
-  shift
   message="$@"
 fi
 rm -rf temp html 2> /dev/null && mkdir -p temp/listed temp/unlisted html
