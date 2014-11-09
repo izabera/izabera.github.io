@@ -84,10 +84,8 @@ chmod +x makeblog
 
 
 echo
-echo "$(tput setab 1)*************************************************$(tput sgr 0)"
-echo "Configure complete, your blog is now ready"
+echo "$(tput bold)Configure complete$(tput sgr0)"
 echo "Your settings have been saved in blog/settings"
 echo "Add your first article in src/indexed"
 echo "When you're ready to publish, run makeblog"
-echo "$(tput setab 1)*************************************************$(tput sgr 0)"
 

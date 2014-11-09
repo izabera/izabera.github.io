@@ -11,19 +11,19 @@ function printbar () {
   value="$1"
   total="$2"
   i=0
-  [[ "$1" != "$2" ]] && echo -en "\r"
   echo -n "["
   for (( ; i<10; i++ )); do
     if (( i >= (value*10)/total )); then
-      echo -n "$(tput setab 1)"    #green
+      echo -n "$(tput setab 1)"    #red
     else
-      echo -n "$(tput setab 2)"    #red
+      echo -n "$(tput setab 2)"    #green
     fi
     echo -n " "
   done
-  echo -n "$(tput sgr 0)]"
-  echo -n "Progress: $value/$total"
+  echo -n "$(tput sgr0)]"
+  echo -n " Progress: $value/$total"
   [ -n "$3" ] && echo -n " - $3"
+  [[ "$1" != "$2" ]] && echo -en "\r" || echo
 }
 
 
@@ -55,7 +55,7 @@ function generateindex () {
     echo "<p>" >> ../index
     sed '1,2d' "$file" | while read line; do
       IFS=' '
-      for word in "$line" ; do
+      for word in $line ; do
         (( wordcount < preview_words )) && echo "$word" >> ../index
         (( wordcount++ ))
       done
@@ -73,9 +73,11 @@ if [ -z "$1" ]; then
 else 
   message="$@"
 fi
-mkdir -p logs temp/listed temp/unlisted html src/indexed src/notindexed
+mkdir -p logs
 rm -rf temp old 2> "$basedir/logs/$log"
+mkdir -p temp/listed temp/unlisted src/indexed src/notindexed
 mv html old 2>> "$basedir/logs/$log"
+mkdir html
 cd blog
 shopt -s extglob
 rm -rf !(settings|defaults|timestamp)
@@ -101,6 +103,7 @@ printbar "$count" "$total" "Copying files"
 shopt -s nullglob
 for file in *; do
   newfile=$(mktemp -u -p . "$(date '+%s' -r "$file")-XXXXXXXX")
+  newfile=${newfile#./}
   cp "$file" "$basedir/temp/unlisted/$newfile"
   (( count++ ))
   printbar "$count" "$total" "Copying files"
@@ -108,6 +111,7 @@ done
 cd ../indexed
 for file in *; do
   newfile=$(mktemp -u -p . "$(date '+%s' -r "$file")-XXXXXXXX")
+  newfile=${newfile#./}
   cp "$file" "$basedir/temp/listed/$newfile"
   echo "$newfile" >> "$basedir/temp/list"
   (( count++ ))
@@ -124,8 +128,8 @@ for file in *; do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc '0-9a-z-').html"
   #assuming no edit has been made to the generated html files
-  if [[ grep $(sha1sum "$file" | awk '{print $1}') "$basedir/shasums" &> /dev/null  \
-    && -f "$basedir/old/$newfile" ]]; then
+  if grep $(sha1sum "$file" | awk '{print $1}') "$basedir/shasums" &> /dev/null  \
+    && [[ -f "$basedir/old/$newfile" ]]; then
     cp "$basedir/old/$newfile" "$basedir/html/$newfile"
   else
     sha1sum "$file" | awk '{print $1}' >> "$basedir/shasums"
@@ -133,7 +137,7 @@ for file in *; do
     sed "s/XXX/$title/" < "$basedir/blog/head" > "$basedir/html/$newfile"
     python -m markdown "$file" >> "$basedir/html/$newfile"
     [[ "$show_date_in_article" == "true" ]] &&  \
-      sed "s/XXX/$timestamp/" < ."$basedir/blog/timestamp" >> "$basedir/html/$newfile"
+      sed "s/XXX/$timestamp/" < "$basedir/blog/timestamp" >> "$basedir/html/$newfile"
     echo "<a href='../../' id='back'>Back</a>" >> "$basedir/html/$newfile"
     cat "$basedir/blog/bottom" >> "$basedir/html/$newfile"
   fi
@@ -144,9 +148,9 @@ cd ../listed
 for file in $(sort -r ../list); do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc '0-9a-z-').html"
-  timestamp="$(date "$dateformat" -d @${file:2:10})"
-  if [[ grep $(sha1sum "$file" | awk '{print $1}') "$basedir/shasums" &> /dev/null   \
-     && -f "$basedir/old/$newfile" ]]; then
+  timestamp="$(date "$dateformat" -d @${file:0:10})"
+  if grep $(sha1sum "$file" | awk '{print $1}') "$basedir/shasums" &> /dev/null   \
+     && [[ -f "$basedir/old/$newfile" ]]; then
     cp "$basedir/old/$newfile" "$basedir/html/$newfile"
   else
     sha1sum "$file" | awk '{print $1}' >> "$basedir/shasums"
@@ -179,7 +183,6 @@ rm -rf temp old
 
 #done
 echo
-echo "$(tput setab 1)*************************************************$(tput sgr 0)"
-echo "Done. Log file saved in $basedir/logs/$log"
-echo "$(tput setab 1)*************************************************$(tput sgr 0)"
+echo "$(tput bold)Done$(tput sgr0)"
+echo "Log file saved in $basedir/logs/$log"
 
