@@ -20,8 +20,10 @@ It should work fine on any GNU/Linux platform.
 I only tested it with GNU utils and probably some parts use GNU extensions.
 
 The only requirement outside of that is an external markdown converter.
-By default, it uses the python pip markdown module. If you absolutely cannot
-use it, you'll have to edit `makeblog` and substitute it with yours.
+By default, it uses the python pip markdown module.
+
+If you prefer something else, just replace it:  
+`sed -i "s/python -m markdown/your-markdown-converter/" makeblog`
 
 
 Installation
