@@ -8,9 +8,9 @@
 
 
 function printbar () {
-  value="$1"
-  total="$2"
-  i=0
+  local value="$1"
+  local total="$2"
+  local i=0
   echo -n "["
   for (( ; i<10; i++ )); do
     if (( i >= (value*10)/total )); then
@@ -98,9 +98,12 @@ mv temp bottom
 #copy
 cd ../src
 cd indexed
-total=$(ls -1 | wc -l)
+numindexed=(*)
+numindexed=${#numindexed[@]}
 cd ../notindexed
-total=$(( total + $(ls -1 | wc -l) ))
+numnotindexed=(*)
+numnotindexed=${#numnotindexed[@]}
+total=$(( numindexed + numnotindexed ))
 [[ "$total" -eq 0 ]] && echo "Nothing to do" && exit
 count=0
 printbar "$count" "$total" "Copying files"
@@ -149,7 +152,7 @@ for file in *; do
   printbar "$count" "$total" "Markdown conversion"
 done
 cd ../listed
-for file in $(sort -r ../list); do
+sort -r ../list | while read file ; do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc '0-9a-z-').html"
   timestamp="$(date "$dateformat" -d "@${file:0:10}")"
