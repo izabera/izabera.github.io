@@ -29,17 +29,19 @@ function printbar () {
 
 function disqussify () {
   if [[ "$disqusplugin" == "true" ]]; then
-    echo "<div class='container' id='disqus_thread'></div>" > disqus
-    echo "<script type='text/javascript'>" >> disqus
-    echo "  var disqus_shortname = '$disqus_name';" >> disqus
-    echo "  (function() {" >> disqus
-    echo "    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;" >> disqus
-    echo "    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';" >> disqus
-    echo "    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);" >> disqus
-    echo "  })();" >> disqus
-    echo "</script>" >> disqus
-    echo "<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>" >> disqus
-    echo "<a href='http://disqus.com' class='dsq-brlink'>comments powered by <span class='logo-disqus'>Disqus</span></a>" >> disqus
+    {
+      echo "<div class='container' id='disqus_thread'></div>"
+      echo "<script type='text/javascript'>"
+      echo "  var disqus_shortname = '$disqus_name';"
+      echo "  (function() {"
+      echo "    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;"
+      echo "    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';"
+      echo "    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);"
+      echo "  })();"
+      echo "</script>"
+      echo "<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>"
+      echo "<a href='http://disqus.com' class='dsq-brlink'>comments powered by <span class='logo-disqus'>Disqus</span></a>"
+    } > disqus
   fi
 }
 
@@ -47,21 +49,23 @@ function disqussify () {
 function generateindex () {
   wordcount=0
   [[ "$rewrite_urls" == "true" ]] && newfile=${newfile%.html}
-  echo -n "<h1><a href='html/$newfile'>" >> ../index
-  head -n1 "$file" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g' >> ../index
-  echo "</a></h1>" >> ../index
-  [[ "$show_date_in_index" == "true" ]] && sed "s/XXX/$timestamp/" < "$basedir/blog/timestamp" >> ../index
-  if (( preview_words > 0 )); then
-    echo "<p>" >> ../index
-    sed '1,2d' "$file" | while read line; do
-      IFS=' '
-      for word in $line ; do
-        (( wordcount < preview_words )) && echo "$word" >> ../index
-        (( wordcount++ ))
+  {
+    echo -n "<h1><a href='html/$newfile'>"
+    head -n1 "$file" | sed -e 's/&/\&amp;/g' -e 's/</\&lt;/g' -e 's/>/\&gt;/g'
+    echo "</a></h1>"
+    [[ "$show_date_in_index" == "true" ]] && sed "s/XXX/$timestamp/" < "$basedir/blog/timestamp"
+    if (( preview_words > 0 )); then
+      echo "<p>"
+      sed '1,2d' "$file" | while read line; do
+        IFS=' '
+        for word in $line ; do
+          (( wordcount < preview_words )) && echo "$word"
+          (( wordcount++ ))
+        done
       done
-    done
-    echo -n "<a href='html/$newfile'>(Read more)</a></p><hr>" >> ../index
-  fi
+      echo -n "<a href='html/$newfile'>(Read more)</a></p><hr>"
+    fi
+  } >> ../index
 }
 
 
@@ -71,7 +75,7 @@ log=$(date '+%s')
 if [ -z "$1" ]; then
   message=$(date)
 else 
-  message="$@"
+  message="$*"
 fi
 mkdir -p logs
 rm -rf temp old 2> "$basedir/logs/$log"
@@ -128,12 +132,12 @@ for file in *; do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc '0-9a-z-').html"
   #assuming no edit has been made to the generated html files
-  if grep $(sha1sum "$file" | awk '{print $1}') "$basedir/shasums" &> /dev/null  \
+  if grep "$(sha1sum "$file" | awk '{print $1}')" "$basedir/shasums" &> /dev/null  \
     && [[ -f "$basedir/old/$newfile" ]]; then
     cp "$basedir/old/$newfile" "$basedir/html/$newfile"
   else
     sha1sum "$file" | awk '{print $1}' >> "$basedir/shasums"
-    timestamp="$(date "$dateformat" -d @${file:0:10})"
+    timestamp="$(date "$dateformat" -d "@${file:0:10}")"
     sed "s/XXX/$title/" < "$basedir/blog/head" > "$basedir/html/$newfile"
     python -m markdown "$file" >> "$basedir/html/$newfile"
     [[ "$show_date_in_article" == "true" ]] &&  \
@@ -148,8 +152,8 @@ cd ../listed
 for file in $(sort -r ../list); do
   title="$(head -n1 "$file")"
   newfile="$(echo "$title" | tr 'A-Z ' 'a-z-' | tr -dc '0-9a-z-').html"
-  timestamp="$(date "$dateformat" -d @${file:0:10})"
-  if grep $(sha1sum "$file" | awk '{print $1}') "$basedir/shasums" &> /dev/null   \
+  timestamp="$(date "$dateformat" -d "@${file:0:10}")"
+  if grep "$(sha1sum "$file" | awk '{print $1}')" "$basedir/shasums" &> /dev/null   \
      && [[ -f "$basedir/old/$newfile" ]]; then
     cp "$basedir/old/$newfile" "$basedir/html/$newfile"
   else
