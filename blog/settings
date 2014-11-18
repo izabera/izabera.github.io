@@ -1,0 +1,10 @@
+title='AICS Asti'
+owner='AICS Comitato Provinciale di Asti'
+dateformat='+%d %m %Y'
+disqusplugin=false
+preview_words=7
+posts_index=5
+show_date_in_index=true
+show_date_in_article=true
+rewrite_urls=false
+gitplugin=false
