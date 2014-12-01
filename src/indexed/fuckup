@@ -34,9 +34,12 @@ handy function I made some time ago:
 `uprm () { cd .. && rm -rf "$OLDPWD" ; }`
 
 Cool, isn't it? What could go wrong with it?  
+
 I did `ls otherdir` and got no result, then I typed `uprm` thinking I was in
 `otherdir`... and of course I got this error message:  
+
 `Cannot remove /home/izabera : Permission denied`  
+
 Sudden realization. Horror. Tears.  
 My IRC friends are still laughing. :(  
 
@@ -46,6 +49,7 @@ directory... Everything.
 Ok, most of the documents are rsynced on my vps too, and I can clone again my
 git trees from various remotes. I lost my uncommitted work, but that wasn't
 much anyway.  
+
 And this is what `uprm` looks like right now:
 
 ```

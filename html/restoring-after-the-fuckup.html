@@ -36,18 +36,18 @@ just a rite of passage for those retirees.” Right.</p>
 <p>Well, in my case it's a little different. I was doing some cleanup with this
 handy function I made some time ago:  </p>
 <p><code>uprm () { cd .. &amp;&amp; rm -rf "$OLDPWD" ; }</code></p>
-<p>Cool, isn't it? What could go wrong with it?<br />
-I did <code>ls otherdir</code> and got no result, then I typed <code>uprm</code> thinking I was in
-<code>otherdir</code>... and of course I got this error message:<br />
-<code>Cannot remove /home/izabera : Permission denied</code><br />
-Sudden realization. Horror. Tears.<br />
+<p>Cool, isn't it? What could go wrong with it?  </p>
+<p>I did <code>ls otherdir</code> and got no result, then I typed <code>uprm</code> thinking I was in
+<code>otherdir</code>... and of course I got this error message:  </p>
+<p><code>Cannot remove /home/izabera : Permission denied</code>  </p>
+<p>Sudden realization. Horror. Tears.<br />
 My IRC friends are still laughing. :(  </p>
 <p>I just deleted all my local files, my documents, my git trees, my notporn
 directory... Everything.  </p>
 <p>Ok, most of the documents are rsynced on my vps too, and I can clone again my
 git trees from various remotes. I lost my uncommitted work, but that wasn't
-much anyway.<br />
-And this is what <code>uprm</code> looks like right now:</p>
+much anyway.  </p>
+<p>And this is what <code>uprm</code> looks like right now:</p>
 <pre><code>uprm () {  
   if [ &quot;${PWD%/*}&quot; = /home ] ; then  
     echo Nope.  
@@ -74,7 +74,7 @@ And this is what <code>uprm</code> looks like right now:</p>
 <code>&lt;izabera&gt;</code> &lt;.&lt;<br />
 <code>&lt;dreisner&gt;</code>  heh<br />
 <code>&lt;osse&gt;</code>  I liked the pause before "again"  </p>
-</blockquote><h4 id="timestamp">Mon 01 Dec 2014 06:42:40 AM CET</h4>
+</blockquote><h4 id="timestamp">Mon 01 Dec 2014 06:49:42 AM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>
