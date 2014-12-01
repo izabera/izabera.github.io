@@ -1,8 +1,7 @@
 Restoring after the fuckup
 ==========================
 
-I hope i'm not the only one who completely deleted her `$HOME` by mistake.
-
+I hope i'm not the only one who completely deleted her `$HOME` by mistake.  
 Well, I _know_ I'm not the only one, this is from the UNIX-HATERS Handbook:
 
 > Unix aficionados accept occasional file deletion as normal. For example,
@@ -30,30 +29,27 @@ Well, I _know_ I'm not the only one, this is from the UNIX-HATERS Handbook:
 > just a rite of passage for those retirees.” Right.
 
 Well, in my case it's a little different. I was doing some cleanup with this
-handy function I made some time ago:
+handy function I made some time ago:  
 
 `uprm () { cd .. && rm -rf "$OLDPWD" ; }`
 
-Cool, isn't it? What could go wrong with it?
-
+Cool, isn't it? What could go wrong with it?  
 I did `ls otherdir` and got no result, then I typed `uprm` thinking I was in
-`otherdir`... and of course I got this error message:
+`otherdir`... and of course I got this error message:  
 
-`Cannot remove /home/izabera : Permission denied`
-Sudden realization. Horror. Tears.
-
-My IRC friends are still laughing. :(
+`Cannot remove /home/izabera : Permission denied`  
+Sudden realization. Horror. Tears.  
+My IRC friends are still laughing. :(  
 
 I just deleted all my local files, my documents, my git trees, my notporn
-directory... Everything.
+directory... Everything.  
 
 Ok, most of the documents are rsynced on my vps too, and I can clone again my
 git trees from various remotes. I lost my uncommitted work, but that wasn't
-much anyway.
-
+much anyway.  
 And this is what `uprm` looks like right now:
 
-`
+```
 uprm () {  
   if [ "${PWD%/*}" = /home ] ; then  
     echo Nope.  
@@ -62,7 +58,7 @@ uprm () {
     cd .. && rm -rf "$OLDPWD"  
   fi  
 }
-`
+```
 
 Thanks to `#bash` :P
 

@@ -10,8 +10,8 @@
 <body>
   <h1 id="title"><a href="/">izabera's blog</a></h1>
 <h1>Restoring after the fuckup</h1>
-<p>I hope i'm not the only one who completely deleted her <code>$HOME</code> by mistake.</p>
-<p>Well, I <em>know</em> I'm not the only one, this is from the UNIX-HATERS Handbook:</p>
+<p>I hope i'm not the only one who completely deleted her <code>$HOME</code> by mistake.<br />
+Well, I <em>know</em> I'm not the only one, this is from the UNIX-HATERS Handbook:</p>
 <blockquote>
 <p>Unix aficionados accept occasional file deletion as normal. For example,
 consider following excerpt from the <code>comp.unix.questions</code> FAQ:</p>
@@ -34,20 +34,20 @@ just a rite of passage for those retirees.” Right.</p>
 </blockquote>
 </blockquote>
 <p>Well, in my case it's a little different. I was doing some cleanup with this
-handy function I made some time ago:</p>
+handy function I made some time ago:  </p>
 <p><code>uprm () { cd .. &amp;&amp; rm -rf "$OLDPWD" ; }</code></p>
-<p>Cool, isn't it? What could go wrong with it?</p>
-<p>I did <code>ls otherdir</code> and got no result, then I typed <code>uprm</code> thinking I was in
-<code>otherdir</code>... and of course I got this error message:</p>
-<p><code>Cannot remove /home/izabera : Permission denied</code>
-Sudden realization. Horror. Tears.</p>
-<p>My IRC friends are still laughing. :(</p>
+<p>Cool, isn't it? What could go wrong with it?<br />
+I did <code>ls otherdir</code> and got no result, then I typed <code>uprm</code> thinking I was in
+<code>otherdir</code>... and of course I got this error message:  </p>
+<p><code>Cannot remove /home/izabera : Permission denied</code><br />
+Sudden realization. Horror. Tears.<br />
+My IRC friends are still laughing. :(  </p>
 <p>I just deleted all my local files, my documents, my git trees, my notporn
-directory... Everything.</p>
+directory... Everything.  </p>
 <p>Ok, most of the documents are rsynced on my vps too, and I can clone again my
 git trees from various remotes. I lost my uncommitted work, but that wasn't
-much anyway.</p>
-<p>And this is what <code>uprm</code> looks like right now:</p>
+much anyway.<br />
+And this is what <code>uprm</code> looks like right now:</p>
 <p><code>uprm () {  
   if [ "${PWD%/*}" = /home ] ; then  
     echo Nope.  
@@ -72,7 +72,7 @@ much anyway.</p>
 <code>&lt;izabera&gt;</code> &lt;.&lt;<br />
 <code>&lt;dreisner&gt;</code>  heh<br />
 <code>&lt;osse&gt;</code>  I liked the pause before "again"  </p>
-</blockquote><h4 id="timestamp">Mon 01 Dec 2014 06:27:00 AM CET</h4>
+</blockquote><h4 id="timestamp">Mon 01 Dec 2014 06:32:07 AM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>
