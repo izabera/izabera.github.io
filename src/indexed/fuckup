@@ -36,7 +36,6 @@ handy function I made some time ago:
 Cool, isn't it? What could go wrong with it?  
 I did `ls otherdir` and got no result, then I typed `uprm` thinking I was in
 `otherdir`... and of course I got this error message:  
-
 `Cannot remove /home/izabera : Permission denied`  
 Sudden realization. Horror. Tears.  
 My IRC friends are still laughing. :(  

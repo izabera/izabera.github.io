@@ -38,8 +38,8 @@ handy function I made some time ago:  </p>
 <p><code>uprm () { cd .. &amp;&amp; rm -rf "$OLDPWD" ; }</code></p>
 <p>Cool, isn't it? What could go wrong with it?<br />
 I did <code>ls otherdir</code> and got no result, then I typed <code>uprm</code> thinking I was in
-<code>otherdir</code>... and of course I got this error message:  </p>
-<p><code>Cannot remove /home/izabera : Permission denied</code><br />
+<code>otherdir</code>... and of course I got this error message:<br />
+<code>Cannot remove /home/izabera : Permission denied</code><br />
 Sudden realization. Horror. Tears.<br />
 My IRC friends are still laughing. :(  </p>
 <p>I just deleted all my local files, my documents, my git trees, my notporn
@@ -48,14 +48,16 @@ directory... Everything.  </p>
 git trees from various remotes. I lost my uncommitted work, but that wasn't
 much anyway.<br />
 And this is what <code>uprm</code> looks like right now:</p>
-<p><code>uprm () {  
-  if [ "${PWD%/*}" = /home ] ; then  
+<pre><code>uprm () {  
+  if [ &quot;${PWD%/*}&quot; = /home ] ; then  
     echo Nope.  
     return 1  
   else  
-    cd .. &amp;&amp; rm -rf "$OLDPWD"  
+    cd .. &amp;&amp; rm -rf &quot;$OLDPWD&quot;  
   fi  
-}</code></p>
+}
+</code></pre>
+
 <p>Thanks to <code>#bash</code> :P</p>
 <blockquote>
 <p><code>&lt;izabera&gt;</code> ok stupid question: how do i check if .. is /home ?<br />
@@ -72,7 +74,7 @@ And this is what <code>uprm</code> looks like right now:</p>
 <code>&lt;izabera&gt;</code> &lt;.&lt;<br />
 <code>&lt;dreisner&gt;</code>  heh<br />
 <code>&lt;osse&gt;</code>  I liked the pause before "again"  </p>
-</blockquote><h4 id="timestamp">Mon 01 Dec 2014 06:32:07 AM CET</h4>
+</blockquote><h4 id="timestamp">Mon 01 Dec 2014 06:42:40 AM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>
