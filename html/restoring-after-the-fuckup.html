@@ -39,8 +39,8 @@ handy function I made some time ago:</p>
 <p>Cool, isn't it? What could go wrong with it?</p>
 <p>I did <code>ls otherdir</code> and got no result, then I typed <code>uprm</code> thinking I was in
 <code>otherdir</code>... and of course I got this error message:</p>
-<p><code>Cannot remove /home/izabera : Permission denied</code></p>
-<p>Sudden realization. Horror. Tears.</p>
+<p><code>Cannot remove /home/izabera : Permission denied</code>
+Sudden realization. Horror. Tears.</p>
 <p>My IRC friends are still laughing. :(</p>
 <p>I just deleted all my local files, my documents, my git trees, my notporn
 directory... Everything.</p>
@@ -48,33 +48,31 @@ directory... Everything.</p>
 git trees from various remotes. I lost my uncommitted work, but that wasn't
 much anyway.</p>
 <p>And this is what <code>uprm</code> looks like right now:</p>
-<p>`
-uprm () {
-  if [ "${PWD%/*}" = /home ] ; then
-    echo Nope.
-    return 1
-  else
-    cd .. &amp;&amp; rm -rf "$OLDPWD"
-  fi
-}
-```</p>
+<p><code>uprm () {  
+  if [ "${PWD%/*}" = /home ] ; then  
+    echo Nope.  
+    return 1  
+  else  
+    cd .. &amp;&amp; rm -rf "$OLDPWD"  
+  fi  
+}</code></p>
 <p>Thanks to <code>#bash</code> :P</p>
 <blockquote>
-<p><code>&lt;izabera&gt;</code> ok stupid question: how do i check if .. is /home ?</p>
-<p><code>&lt;dreisner&gt;</code>  [[ .. -ef /home ]]</p>
-<p><code>&lt;osse&gt;</code>  izabera: [[ ${PWD%/*} = /home</p>
-<p><code>&lt;osse&gt;</code>  ]]</p>
-<p><code>&lt;dreisner&gt;</code>  osse: that could fail with some symlinkery</p>
-<p><code>&lt;dreisner&gt;</code>  but then, it depends on how you want to treat that situation</p>
-<p><code>&lt;osse&gt;</code>  yup</p>
-<p><code>&lt;osse&gt;</code>  eems everything can</p>
-<p><code>&lt;dreisner&gt;</code>  well, using -ef will have more consistent behavior</p>
-<p><code>&lt;geirha&gt;</code>  In this case, I'm sure the goal is to avoid removing $HOME</p>
-<p><code>&lt;geirha&gt;</code>  again</p>
-<p><code>&lt;izabera&gt;</code> &lt;.&lt;</p>
-<p><dreisner>  heh</p>
-<p><osse>  I liked the pause before "again"</p>
-</blockquote><h4 id="timestamp">Mon 01 Dec 2014 05:59:50 AM CET</h4>
+<p><code>&lt;izabera&gt;</code> ok stupid question: how do i check if .. is /home ?<br />
+<code>&lt;dreisner&gt;</code>  [[ .. -ef /home ]]<br />
+<code>&lt;osse&gt;</code>  izabera: [[ ${PWD%/*} = /home<br />
+<code>&lt;osse&gt;</code>  ]]<br />
+<code>&lt;dreisner&gt;</code>  osse: that could fail with some symlinkery<br />
+<code>&lt;dreisner&gt;</code>  but then, it depends on how you want to treat that situation<br />
+<code>&lt;osse&gt;</code>  yup<br />
+<code>&lt;osse&gt;</code>  eems everything can<br />
+<code>&lt;dreisner&gt;</code>  well, using -ef will have more consistent behavior<br />
+<code>&lt;geirha&gt;</code>  In this case, I'm sure the goal is to avoid removing $HOME<br />
+<code>&lt;geirha&gt;</code>  again<br />
+<code>&lt;izabera&gt;</code> &lt;.&lt;<br />
+<code>&lt;dreisner&gt;</code>  heh<br />
+<code>&lt;osse&gt;</code>  I liked the pause before "again"  </p>
+</blockquote><h4 id="timestamp">Mon 01 Dec 2014 06:27:00 AM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>
