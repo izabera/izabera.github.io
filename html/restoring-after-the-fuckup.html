@@ -14,11 +14,11 @@
 <p>Well, I <em>know</em> I'm not the only one, this is from the UNIX-HATERS Handbook:</p>
 <blockquote>
 <p>Unix aficionados accept occasional file deletion as normal. For example,
-consider following excerpt from the comp.unix.questions FAQ:</p>
+consider following excerpt from the <code>comp.unix.questions</code> FAQ:</p>
 <blockquote>
 <p>6) How do I “undelete” a file?</p>
 <p>Someday, you are going to accidentally type something like:</p>
-<p>% rm * .foo</p>
+<p><code>% rm * .foo</code></p>
 <p>and find you just deleted “<em>” instead of “</em>.foo”. Consider it a
 rite of passage.</p>
 <p>Of course, any decent systems administrator should be doing
@@ -48,14 +48,19 @@ directory... Everything.</p>
 git trees from various remotes. I lost my uncommitted work, but that wasn't
 much anyway.</p>
 <p>And this is what <code>uprm</code> looks like right now:</p>
-<p><code>uprm () {
-  if [ "${PWD%/*}" = /home ] ; then
-    echo Nope.
-    return 1
-  else
-    cd .. &amp;&amp; rm -rf "$OLDPWD"
-  fi
-}</code></p>
+<p>```
+uprm () {</p>
+<p>if [ "${PWD%/*}" = /home ] ; then</p>
+<pre><code>echo Nope.
+
+return 1
+</code></pre>
+<p>else</p>
+<pre><code>cd .. &amp;&amp; rm -rf "$OLDPWD"
+</code></pre>
+<p>fi</p>
+<p>}
+```</p>
 <p>Thanks to <code>#bash</code> :P</p>
 <blockquote>
 <p><izabera> ok stupid question: how do i check if .. is /home ?
@@ -72,7 +77,7 @@ much anyway.</p>
 <izabera> &lt;.&lt;
 <dreisner>  heh
 <osse>  I liked the pause before "again"</p>
-</blockquote><h4 id="timestamp">Mon 01 Dec 2014 05:52:51 AM CET</h4>
+</blockquote><h4 id="timestamp">Mon 01 Dec 2014 05:54:24 AM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>

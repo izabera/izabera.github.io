@@ -6,13 +6,13 @@ I hope i'm not the only one who completely deleted her `$HOME` by mistake.
 Well, I _know_ I'm not the only one, this is from the UNIX-HATERS Handbook:
 
 > Unix aficionados accept occasional file deletion as normal. For example,
-> consider following excerpt from the comp.unix.questions FAQ:
+> consider following excerpt from the `comp.unix.questions` FAQ:
 > > 
 > > 6) How do I “undelete” a file?
 > >
 > > Someday, you are going to accidentally type something like:
 > > 
-> > % rm * .foo
+> > `% rm * .foo`
 > > 
 > > and find you just deleted “*” instead of “*.foo”. Consider it a
 > > rite of passage.
@@ -56,12 +56,19 @@ And this is what `uprm` looks like right now:
 
 ```
 uprm () {
+
   if [ "${PWD%/*}" = /home ] ; then
+
     echo Nope.
+
     return 1
+
   else
+
     cd .. && rm -rf "$OLDPWD"
+
   fi
+
 }
 ```
 
