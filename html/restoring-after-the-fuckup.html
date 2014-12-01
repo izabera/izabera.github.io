@@ -19,7 +19,7 @@ consider following excerpt from the <code>comp.unix.questions</code> FAQ:</p>
 <p>6) How do I “undelete” a file?</p>
 <p>Someday, you are going to accidentally type something like:</p>
 <p><code>% rm * .foo</code></p>
-<p>and find you just deleted “<em>” instead of “</em>.foo”. Consider it a
+<p>and find you just deleted <code>“*”</code> instead of <code>“*.foo”</code>. Consider it a
 rite of passage.</p>
 <p>Of course, any decent systems administrator should be doing
 regular backups. Check with your sysadmin to see if a recent
@@ -48,36 +48,33 @@ directory... Everything.</p>
 git trees from various remotes. I lost my uncommitted work, but that wasn't
 much anyway.</p>
 <p>And this is what <code>uprm</code> looks like right now:</p>
-<p>```
-uprm () {</p>
-<p>if [ "${PWD%/*}" = /home ] ; then</p>
-<pre><code>echo Nope.
-
-return 1
-</code></pre>
-<p>else</p>
-<pre><code>cd .. &amp;&amp; rm -rf "$OLDPWD"
-</code></pre>
-<p>fi</p>
-<p>}
+<p>`
+uprm () {
+  if [ "${PWD%/*}" = /home ] ; then
+    echo Nope.
+    return 1
+  else
+    cd .. &amp;&amp; rm -rf "$OLDPWD"
+  fi
+}
 ```</p>
 <p>Thanks to <code>#bash</code> :P</p>
 <blockquote>
-<p><izabera> ok stupid question: how do i check if .. is /home ?
-<dreisner>  [[ .. -ef /home ]]
-<osse>  izabera: [[ ${PWD%/*} = /home
-<osse>  ]]
-<dreisner>  osse: that could fail with some symlinkery
-<dreisner>  but then, it depends on how you want to treat that situation
-<osse>  yup
-<osse>  eems everything can
-<dreisner>  well, using -ef will have more consistent behavior
-<geirha>  In this case, I'm sure the goal is to avoid removing $HOME
-<geirha>  again
-<izabera> &lt;.&lt;
-<dreisner>  heh
-<osse>  I liked the pause before "again"</p>
-</blockquote><h4 id="timestamp">Mon 01 Dec 2014 05:54:24 AM CET</h4>
+<p><code>&lt;izabera&gt;</code> ok stupid question: how do i check if .. is /home ?</p>
+<p><code>&lt;dreisner&gt;</code>  [[ .. -ef /home ]]</p>
+<p><code>&lt;osse&gt;</code>  izabera: [[ ${PWD%/*} = /home</p>
+<p><code>&lt;osse&gt;</code>  ]]</p>
+<p><code>&lt;dreisner&gt;</code>  osse: that could fail with some symlinkery</p>
+<p><code>&lt;dreisner&gt;</code>  but then, it depends on how you want to treat that situation</p>
+<p><code>&lt;osse&gt;</code>  yup</p>
+<p><code>&lt;osse&gt;</code>  eems everything can</p>
+<p><code>&lt;dreisner&gt;</code>  well, using -ef will have more consistent behavior</p>
+<p><code>&lt;geirha&gt;</code>  In this case, I'm sure the goal is to avoid removing $HOME</p>
+<p><code>&lt;geirha&gt;</code>  again</p>
+<p><code>&lt;izabera&gt;</code> &lt;.&lt;</p>
+<p><dreisner>  heh</p>
+<p><osse>  I liked the pause before "again"</p>
+</blockquote><h4 id="timestamp">Mon 01 Dec 2014 05:59:50 AM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>

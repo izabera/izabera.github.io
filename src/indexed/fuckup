@@ -14,7 +14,7 @@ Well, I _know_ I'm not the only one, this is from the UNIX-HATERS Handbook:
 > > 
 > > `% rm * .foo`
 > > 
-> > and find you just deleted “*” instead of “*.foo”. Consider it a
+> > and find you just deleted `“*”` instead of `“*.foo”`. Consider it a
 > > rite of passage.
 > > 
 > > Of course, any decent systems administrator should be doing
@@ -54,38 +54,44 @@ much anyway.
 
 And this is what `uprm` looks like right now:
 
-```
+`
 uprm () {
-
   if [ "${PWD%/*}" = /home ] ; then
-
     echo Nope.
-
     return 1
-
   else
-
     cd .. && rm -rf "$OLDPWD"
-
   fi
-
 }
 ```
 
 Thanks to `#bash` :P
 
-> <izabera> ok stupid question: how do i check if .. is /home ?
-> <dreisner>  [[ .. -ef /home ]]
-> <osse>  izabera: [[ ${PWD%/*} = /home
-> <osse>  ]]
-> <dreisner>  osse: that could fail with some symlinkery
-> <dreisner>  but then, it depends on how you want to treat that situation
-> <osse>  yup
-> <osse>  eems everything can
-> <dreisner>  well, using -ef will have more consistent behavior
-> <geirha>  In this case, I'm sure the goal is to avoid removing $HOME
-> <geirha>  again
-> <izabera> <.<
+> `<izabera>` ok stupid question: how do i check if .. is /home ?
+>
+> `<dreisner>`  [[ .. -ef /home ]]
+>
+> `<osse>`  izabera: [[ ${PWD%/*} = /home
+>
+> `<osse>`  ]]
+>
+> `<dreisner>`  osse: that could fail with some symlinkery
+>
+> `<dreisner>`  but then, it depends on how you want to treat that situation
+>
+> `<osse>`  yup
+>
+> `<osse>`  eems everything can
+>
+> `<dreisner>`  well, using -ef will have more consistent behavior
+>
+> `<geirha>`  In this case, I'm sure the goal is to avoid removing $HOME
+>
+> `<geirha>`  again
+>
+> `<izabera>` <.<
+>
 > <dreisner>  heh
+>
 > <osse>  I liked the pause before "again"
 
