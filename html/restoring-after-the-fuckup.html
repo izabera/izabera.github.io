@@ -1,0 +1,89 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>izabera's blog - Restoring after the fuckup</title>
+  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster">
+  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cabin">
+</head>
+<body>
+  <h1 id="title"><a href="/">izabera's blog</a></h1>
+<h1>Restoring after the fuckup</h1>
+<p>I hope i'm not the only one who completely deleted her <code>$HOME</code> by mistake.</p>
+<p>Well, I <em>know</em> I'm not the only one, this is from the UNIX-HATERS Handbook:</p>
+<blockquote>
+<p>Unix aficionados accept occasional file deletion as normal. For example,
+consider following excerpt from the comp.unix.questions FAQ:</p>
+<blockquote>
+<p>6) How do I “undelete” a file?
+Someday, you are going to accidentally type something like:
+% rm * .foo
+and find you just deleted “<em>” instead of “</em>.foo”. Consider it a
+rite of passage.
+Of course, any decent systems administrator should be doing
+regular backups. Check with your sysadmin to see if a recent
+backup copy of your file is available.
+“A rite of passage”? In no other industry could a manufacturer take such a
+cavalier attitude toward a faulty product. “But your honor, the exploding
+gas tank was just a rite of passage.” “Ladies and gentlemen of the jury, we
+will prove that the damage caused by the failure of the safety catch on our
+chainsaw was just a rite of passage for its users.” “May it please the court,
+we will show that getting bilked of their life savings by Mr. Keating was
+just a rite of passage for those retirees.” Right.</p>
+</blockquote>
+</blockquote>
+<p>Well, in my case it's a little different. I was doing some cleanup with this
+handy function I made some time ago:</p>
+<p><code>uprm () { cd .. &amp;&amp; rm -rf "$OLDPWD" ; }</code></p>
+<p>Cool, isn't it? What could go wrong with it?</p>
+<p>I did <code>ls otherdir</code> and got no result, then I typed <code>uprm</code> thinking I was in
+<code>otherdir</code>... and of course I got this error message:</p>
+<p><code>Cannot remove /home/izabera : Permission denied</code></p>
+<p>Sudden realization. Horror. Tears.</p>
+<p>My IRC friends are still laughing. :(</p>
+<p>I just deleted all my local files, my documents, my git trees, my notporn
+directory... Everything.</p>
+<p>Ok, most of the documents are rsynced on my vps too, and I can clone again my
+git trees from various remotes. I lost my uncommitted work, but that wasn't
+much anyway.</p>
+<p>And this is what <code>uprm</code> looks like right now:</p>
+<p><code>uprm () {
+  if [ "${PWD%/*}" = /home ] ; then
+    echo Nope.
+    return 1
+  else
+    cd .. &amp;&amp; rm -rf "$OLDPWD"
+  fi
+}</code></p>
+<p>Thanks to <code>#bash</code> :P</p>
+<blockquote>
+<p><izabera> ok stupid question: how do i check if .. is /home ?
+<dreisner>  [[ .. -ef /home ]]
+<osse>  izabera: [[ ${PWD%/*} = /home
+<osse>  ]]
+<dreisner>  osse: that could fail with some symlinkery
+<dreisner>  but then, it depends on how you want to treat that situation
+<osse>  yup
+<osse>  eems everything can
+<dreisner>  well, using -ef will have more consistent behavior
+<geirha>  In this case, I'm sure the goal is to avoid removing $HOME
+<geirha>  again
+<izabera> &lt;.&lt;
+<dreisner>  heh
+<osse>  I liked the pause before "again"</p>
+</blockquote><h4 id="timestamp">Mon 01 Dec 2014 05:46:51 AM CET</h4>
+
+<a href='../../' id='back'>Back</a>
+<div class='container' id='disqus_thread'></div>
+<script type='text/javascript'>
+var disqus_shortname = 'izablog';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href='http://disqus.com' class='dsq-brlink'>comments powered by <span class='logo-disqus'>Disqus</span></a>
+<p id="footer">Copyright © 2014 izabera | <a href="/html/about.html">About</a></p></body></html>

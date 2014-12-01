@@ -1,0 +1,78 @@
+Restoring after the fuckup
+==========================
+
+I hope i'm not the only one who completely deleted her `$HOME` by mistake.
+
+Well, I _know_ I'm not the only one, this is from the UNIX-HATERS Handbook:
+
+> Unix aficionados accept occasional file deletion as normal. For example,
+> consider following excerpt from the comp.unix.questions FAQ:
+> > 6) How do I “undelete” a file?
+> > Someday, you are going to accidentally type something like:
+> > % rm * .foo
+> > and find you just deleted “*” instead of “*.foo”. Consider it a
+> > rite of passage.
+> > Of course, any decent systems administrator should be doing
+> > regular backups. Check with your sysadmin to see if a recent
+> > backup copy of your file is available.
+> “A rite of passage”? In no other industry could a manufacturer take such a
+> cavalier attitude toward a faulty product. “But your honor, the exploding
+> gas tank was just a rite of passage.” “Ladies and gentlemen of the jury, we
+> will prove that the damage caused by the failure of the safety catch on our
+> chainsaw was just a rite of passage for its users.” “May it please the court,
+> we will show that getting bilked of their life savings by Mr. Keating was
+> just a rite of passage for those retirees.” Right.
+
+Well, in my case it's a little different. I was doing some cleanup with this
+handy function I made some time ago:
+
+`uprm () { cd .. && rm -rf "$OLDPWD" ; }`
+
+Cool, isn't it? What could go wrong with it?
+
+I did `ls otherdir` and got no result, then I typed `uprm` thinking I was in
+`otherdir`... and of course I got this error message:
+
+`Cannot remove /home/izabera : Permission denied`
+
+Sudden realization. Horror. Tears.
+
+My IRC friends are still laughing. :(
+
+I just deleted all my local files, my documents, my git trees, my notporn
+directory... Everything.
+
+Ok, most of the documents are rsynced on my vps too, and I can clone again my
+git trees from various remotes. I lost my uncommitted work, but that wasn't
+much anyway.
+
+And this is what `uprm` looks like right now:
+
+```
+uprm () {
+  if [ "${PWD%/*}" = /home ] ; then
+    echo Nope.
+    return 1
+  else
+    cd .. && rm -rf "$OLDPWD"
+  fi
+}
+```
+
+Thanks to `#bash` :P
+
+> <izabera> ok stupid question: how do i check if .. is /home ?
+> <dreisner>  [[ .. -ef /home ]]
+> <osse>  izabera: [[ ${PWD%/*} = /home
+> <osse>  ]]
+> <dreisner>  osse: that could fail with some symlinkery
+> <dreisner>  but then, it depends on how you want to treat that situation
+> <osse>  yup
+> <osse>  eems everything can
+> <dreisner>  well, using -ef will have more consistent behavior
+> <geirha>  In this case, I'm sure the goal is to avoid removing $HOME
+> <geirha>  again
+> <izabera> <.<
+> <dreisner>  heh
+> <osse>  I liked the pause before "again"
+
