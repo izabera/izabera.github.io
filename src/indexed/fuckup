@@ -7,14 +7,20 @@ Well, I _know_ I'm not the only one, this is from the UNIX-HATERS Handbook:
 
 > Unix aficionados accept occasional file deletion as normal. For example,
 > consider following excerpt from the comp.unix.questions FAQ:
+> > 
 > > 6) How do I “undelete” a file?
+> >
 > > Someday, you are going to accidentally type something like:
+> > 
 > > % rm * .foo
+> > 
 > > and find you just deleted “*” instead of “*.foo”. Consider it a
 > > rite of passage.
+> > 
 > > Of course, any decent systems administrator should be doing
 > > regular backups. Check with your sysadmin to see if a recent
 > > backup copy of your file is available.
+> > 
 > “A rite of passage”? In no other industry could a manufacturer take such a
 > cavalier attitude toward a faulty product. “But your honor, the exploding
 > gas tank was just a rite of passage.” “Ladies and gentlemen of the jury, we
