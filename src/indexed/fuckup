@@ -52,7 +52,7 @@ much anyway.
 
 And this is what `uprm` looks like right now:
 
-```
+```bash
 uprm () {  
   if [ "${PWD%/*}" = /home ] ; then  
     echo Nope.  

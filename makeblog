@@ -142,7 +142,7 @@ for file in *; do
     sha1sum "$file" | awk '{print $1}' >> "$basedir/shasums"
     timestamp="$(date "$dateformat" -d "@${file:0:10}")"
     sed "s/XXX/$title/" < "$basedir/blog/head" > "$basedir/html/$newfile"
-    python -m markdown -x markdown.extensions.fenced_code "$file" >> "$basedir/html/$newfile"
+    python -m markdown -x markdown.extensions.fenced_code -x markdown.extensions.codehilite "$file" >> "$basedir/html/$newfile"
     [[ "$show_date_in_article" == "true" ]] &&  \
       sed "s/XXX/$timestamp/" < "$basedir/blog/timestamp" >> "$basedir/html/$newfile"
     echo "<a href='../../' id='back'>Back</a>" >> "$basedir/html/$newfile"
@@ -162,7 +162,7 @@ sort -r ../list | while read file ; do
   else
     sha1sum "$file" | awk '{print $1}' >> "$basedir/shasums"
     sed "s/XXX/$title/" < "$basedir/blog/head" > "$basedir/html/$newfile"
-    python -m markdown -x markdown.extensions.fenced_code "$file" >> "$basedir/html/$newfile"
+    python -m markdown -x markdown.extensions.fenced_code -x markdown.extensions.codehilite "$file" >> "$basedir/html/$newfile"
     [[ "$show_date_in_article" == "true" ]] &&  \
       sed "s/XXX/$timestamp/" < "$basedir/blog/timestamp" >> "$basedir/html/$newfile"
     echo "<a href='../../' id='back'>Back</a>" >> "$basedir/html/$newfile"
