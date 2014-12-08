@@ -56,13 +56,13 @@ this nice(r) way of using `goto` statements in bash:
 
 [http://bobcopeland.com/blog/2012/10/goto-in-bash/](http://bobcopeland.com/blog/2012/10/goto-in-bash/)
 
-I didn't really like `sed | grep` part, but it's way better than my version.
+I didn't really like the `sed | grep` part, but it's way better than my version.
 My labels are still better, as they're valid shell code and don't need to be
 grepped away.
 
 Inspired by this, one could just write:
 
-`goto () { eval $(sed -n "/^: $1\$/,\$p"); exit $? ; }`
+`goto () { eval $(sed -n "/^: $1\$/,\$p"); exit $?; }`
 
 Pretty neat, isn't it?
 
@@ -89,4 +89,6 @@ goto () {
 ```
 
 Writing unreadable bash code has never been easier.
+
+(Yes, it obviously breaks when you `source` a file with `goto`'s)
 
