@@ -13,21 +13,17 @@ This is the code I wrote, it's pretty crappy but it kinda works.
 
 ```
 #!/usr/bin/env bash
-
 # add the following two lines at the top of your script
 set -a; 
 [[ ! "$script" ]] && script="$0"
-
 # your functions here
 func () {
   echo "i'm in a function"
 }
 # end of functions
-
 # this must be declared after all other functions
 goto () { exec bash <<< "$(sed -n "1,$LINENO p; /^: $1\$/,\$ p" "$script")" ; }
 # and now, let's goto!
-
 echo first
 variable=hello
 goto foo

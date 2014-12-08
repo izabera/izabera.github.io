@@ -17,21 +17,17 @@ a bit of caution, but I like it overall.</p>
 <p>This is terrible.  I must fix this.  Yes, I wrote my own goto function.</p>
 <p>This is the code I wrote, it's pretty crappy but it kinda works.</p>
 <pre><code>#!/usr/bin/env bash
-
 # add the following two lines at the top of your script
 set -a; 
 [[ ! &quot;$script&quot; ]] &amp;&amp; script=&quot;$0&quot;
-
 # your functions here
 func () {
   echo &quot;i'm in a function&quot;
 }
 # end of functions
-
 # this must be declared after all other functions
 goto () { exec bash &lt;&lt;&lt; &quot;$(sed -n &quot;1,$LINENO p; /^: $1\$/,\$ p&quot; &quot;$script&quot;)&quot; ; }
 # and now, let's goto!
-
 echo first
 variable=hello
 goto foo
@@ -81,7 +77,7 @@ grepped away.</p>
 }
 </code></pre>
 
-<p>Writing unreadable bash code has never been easier.</p><h4 id="timestamp">Mon 08 Dec 2014 01:28:33 AM CET</h4>
+<p>Writing unreadable bash code has never been easier.</p><h4 id="timestamp">Mon 08 Dec 2014 01:31:13 AM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>
