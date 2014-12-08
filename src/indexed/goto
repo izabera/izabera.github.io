@@ -90,5 +90,6 @@ goto () {
 
 Writing unreadable bash code has never been easier.
 
-(Yes, it obviously breaks when you `source` a file with `goto`'s)
+(Yes, it obviously breaks when you `source` a file with `goto`'s or when you
+jump inside a function or when...)
 
