@@ -54,28 +54,26 @@ Is there anything better?
 A quick google search (which I should have done before writing it) reported
 this nice(r) way of using `goto` statements in bash:
 
-http://bobcopeland.com/blog/2012/10/goto-in-bash/
+[http://bobcopeland.com/blog/2012/10/goto-in-bash/](http://bobcopeland.com/blog/2012/10/goto-in-bash/)
 
 I didn't really like `sed | grep` part, but it's way better than my version.
 My labels are still better, as they're valid shell code and don't need to be
 grepped away.
 
-
 Inspired by this, one could just write:
 
-`goto () { eval $(sed "/^: $1\$/,\$p") ; exit $? ; }`
+`goto () { eval $(sed -n "/^: $1\$/,\$p"); exit $? ; }`
 
 Pretty neat, isn't it?
 
-But... this means i cannot use comments in labels :(
+But... this means i cannot use comments in labels :(  Ok, let's change it to:
 
-Ok, let's change it to:
-
-`goto () { eval "$(sed -n "/^: $1[[:space:]]*\(#.*\)*\$/,\$p" "$0")" ; exit $?; }`
+`goto () { eval "$(sed -n "/^: $1[[:space:]]*\(#.*\)*\$/,\$p" "$0")"; exit $?; }`
 
 That's better, but it just ignores `goto`s that point to inexistant labels.
 
-This is the final version, with error checking:
+This is the version with error checking:  (remember: real programmers need no
+error checking, but it's up to you)
 
 ```
 goto () {
@@ -84,6 +82,7 @@ goto () {
     eval "$cmd"
     exit $?
   else
+    echo "Label not found: $1" >&2
     exit 1
   fi
 }
