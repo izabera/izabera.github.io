@@ -59,7 +59,7 @@ this nice(r) way of using <code>goto</code> statements in bash:</p>
 My labels are still better, as they're valid shell code and don't need to be
 grepped away.</p>
 <p>Inspired by this, one could just write:</p>
-<p><code>goto () { eval $(sed -n "/^: $1\$/,\$p"); exit $?; }</code></p>
+<p><code>goto () { eval $(sed -n "/^: $1\$/,\$p" "$0"); exit $?; }</code></p>
 <p>Pretty neat, isn't it?</p>
 <p>But... this means i cannot use comments in labels :(  Ok, let's change it to:</p>
 <p><code>goto () { eval "$(sed -n "/^: $1[[:space:]]*\(#.*\)*\$/,\$p" "$0")"; exit $?; }</code></p>
@@ -79,7 +79,7 @@ error checking, but it's up to you)</p>
 </code></pre>
 
 <p>Writing unreadable bash code has never been easier.</p>
-<p>(Yes, it obviously breaks when you <code>source</code> a file with <code>goto</code>'s)</p><h4 id="timestamp">Mon 08 Dec 2014 02:30:08 AM CET</h4>
+<p>(Yes, it obviously breaks when you <code>source</code> a file with <code>goto</code>'s)</p><h4 id="timestamp">Sun 07 Dec 2014 10:12:00 PM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>

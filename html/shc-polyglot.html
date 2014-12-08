@@ -1,0 +1,31 @@
+<h1>sh/C Polyglot</h1>
+<p>A nice (mis)feature of POSIX shells is that the shell must run a script that's
+marked as executable even if the shebang line is missing.</p>
+<p>This does make sense, in case the underlying system has no support for it.
+More details at <a href="http://www.in-ulm.de/~mascheck/various/shebang/">http://www.in-ulm.de/~mascheck/various/shebang/</a></p>
+<p>However, all modern *nix systems <em>do</em> support it, of course.</p>
+<p>A guy on IRC said:</p>
+<p><dmnc> I'm sure it'd be possible to write a file which would print out the
+lyrics to some song if executed by csh, search for big prime numbers if
+compiled as C code, and erase your /usr folder if run as a bash script ;)</p>
+<p>Well, I don't know csh but I'm up to the challenge :)</p>
+<pre><code>#include &lt;stdio.h&gt;
+main () { printf /* # */ (&quot;primes: 2 3 5 7 and so on\n&quot;);  } /*
+} ; echo some shell code that deletes your files # */
+</code></pre>
+
+<p>Heh, it wasn't even too hard. :P</p><h4 id="timestamp">Mon 08 Dec 2014 02:22:20 PM CET</h4>
+
+<a href='../../' id='back'>Back</a>
+<div class='container' id='disqus_thread'></div>
+<script type='text/javascript'>
+var disqus_shortname = 'izablog';
+  (function() {
+    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+    dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+  })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href='http://disqus.com' class='dsq-brlink'>comments powered by <span class='logo-disqus'>Disqus</span></a>
+<p id="footer">Copyright © 2014 izabera | <a href="/html/about.html">About</a></p></body></html>

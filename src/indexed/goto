@@ -62,7 +62,7 @@ grepped away.
 
 Inspired by this, one could just write:
 
-`goto () { eval $(sed -n "/^: $1\$/,\$p"); exit $?; }`
+`goto () { eval $(sed -n "/^: $1\$/,\$p" "$0"); exit $?; }`
 
 Pretty neat, isn't it?
 
