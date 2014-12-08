@@ -1,4 +1,4 @@
-sh/C Polyglot
+sh-C Polyglot
 ==
 
 A nice (mis)feature of POSIX shells is that the shell must run a script that's
