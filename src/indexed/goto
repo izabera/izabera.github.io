@@ -1,0 +1,97 @@
+Goto in Bash
+============
+
+I've been playing around with Bash, and it's quickly becoming my all time
+favourite language.  There are some pitfalls and something that requires
+a bit of caution, but I like it overall.
+
+Bash has no `goto`.
+
+This is terrible.  I must fix this.  Yes, I wrote my own goto function.
+
+This is the code I wrote, it's pretty crappy but it kinda works.
+
+```
+#!/usr/bin/env bash
+
+# add the following two lines at the top of your script
+set -a; 
+[[ ! "$script" ]] && script="$0"
+
+# your functions here
+func () {
+  echo "i'm in a function"
+}
+# end of functions
+
+# this must be declared after all other functions
+goto () { exec bash <<< "$(sed -n "1,$LINENO p; /^: $1\$/,\$ p" "$script")" ; }
+# and now, let's goto!
+
+echo first
+variable=hello
+goto foo
+echo second
+# this is a label
+: bar
+echo third
+goto last
+: foo
+func
+echo fourth
+goto bar
+: last
+echo end
+echo "$variable"
+```
+
+Why it sucks
+--
+
+1. You _have_ to export all your variables
+2. All the functions must be declared at the beginning of the script
+3. There's no way to export arrays
+
+Is there anything better?
+--
+
+A quick google search (which I should have done before writing it) reported
+this nice(r) way of using `goto` statements in bash:
+
+http://bobcopeland.com/blog/2012/10/goto-in-bash/
+
+I didn't really like `sed | grep` part, but it's way better than my version.
+My labels are still better, as they're valid shell code and don't need to be
+grepped away.
+
+
+Inspired by this, one could just write:
+
+`goto () { eval $(sed "/^: $1\$/,\$p") ; exit $? ; }`
+
+Pretty neat, isn't it?
+
+But... this means i cannot use comments in labels :(
+
+Ok, let's change it to:
+
+`goto () { eval "$(sed -n "/^: $1[[:space:]]*\(#.*\)*\$/,\$p" "$0")" ; exit $?; }`
+
+That's better, but it just ignores `goto`s that point to inexistant labels.
+
+This is the final version, with error checking:
+
+```
+goto () {
+  cmd=$(sed -n "/^: $1[[:space:]]*\(#.*\)*\$/,\$p" "$0")
+  if [[ $cmd ]] ; then
+    eval "$cmd"
+    exit $?
+  else
+    exit 1
+  fi
+}
+```
+
+Writing unreadable bash code has never been easier.
+
