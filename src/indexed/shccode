@@ -11,9 +11,7 @@ However, all modern *nix systems _do_ support it, of course.
 
 A guy on IRC said:
 
-<dmnc> I'm sure it'd be possible to write a file which would print out the
-lyrics to some song if executed by csh, search for big prime numbers if
-compiled as C code, and erase your /usr folder if run as a bash script ;)
+`<dmnc> I'm sure it'd be possible to write a file which would print out the lyrics to some song if executed by csh, search for big prime numbers if compiled as C code, and erase your /usr folder if run as a bash script ;)`
 
 Well, I don't know csh but I'm up to the challenge :)
 
