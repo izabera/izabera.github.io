@@ -67,18 +67,18 @@ grepped away.</p>
 <p>This is the version with error checking:  (remember: real programmers need no
 error checking, but it's up to you)</p>
 <pre><code>goto () {
+  (( ! $# )) &amp;&amp; return 1
   cmd=$(sed -n &quot;/^: $1[[:space:]]*\(#.*\)*\$/,\$p&quot; &quot;$0&quot;)
   if [[ $cmd ]] ; then
     eval &quot;$cmd&quot;
     exit $?
   else
-    echo &quot;Label not found: $1&quot; &gt;&amp;2
-    exit 1
+    return 1
   fi
 }
 </code></pre>
 
-<p>Writing unreadable bash code has never been easier.</p><h4 id="timestamp">Mon 08 Dec 2014 01:41:00 AM CET</h4>
+<p>Writing unreadable bash code has never been easier.</p><h4 id="timestamp">Mon 08 Dec 2014 01:50:34 AM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>

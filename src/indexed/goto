@@ -77,13 +77,13 @@ error checking, but it's up to you)
 
 ```
 goto () {
+  (( ! $# )) && return 1
   cmd=$(sed -n "/^: $1[[:space:]]*\(#.*\)*\$/,\$p" "$0")
   if [[ $cmd ]] ; then
     eval "$cmd"
     exit $?
   else
-    echo "Label not found: $1" >&2
-    exit 1
+    return 1
   fi
 }
 ```
