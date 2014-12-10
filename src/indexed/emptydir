@@ -1,0 +1,44 @@
+Determining if a directory is empty
+===================================
+
+There's [this](http://www.etalabs.net/sh_tricks.html) nice page about various
+`sh` tricks.  The author shows this function:
+
+```
+is_empty () (
+  cd "$1"
+  set -- .[!.]* ; test -f "$1" && return 1
+  set -- ..?* ; test -f "$1" && return 1
+  set -- * ; test -f "$1" && return 1
+  return 0
+)
+```
+
+Why it's bad
+------------
+
+- if `cd` fails, the globs expand to the content of the _current_ directory
+- `test -f directory` returns 1
+- `test -f broken-symlink` returns 1
+- it forks up to 3 times if your shell doesn't have a builtin `test`
+- it requires 8 commands to successfully test if a directory is empty
+
+
+What's a better version?
+------------------------
+
+I'd say this one fixes most of the problems
+
+```
+is_empty () {
+  set -- "$1"/.* "$1"/*
+  test -e "$3" || test -L "$3" && return 1
+  return 0
+}
+```
+
+The globs expand to `.` and `..`, followed by all the files in the directory.
+
+It doesn't need as many forks and at most 4 commands are required.
+Oh, and it doesn't fail if it contains only a directory or a broken symlink.
+
