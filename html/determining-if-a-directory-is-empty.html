@@ -33,14 +33,19 @@
 <p>I'd say this one fixes most of the problems</p>
 <pre><code>is_empty () {
   set -- &quot;$1&quot;/.* &quot;$1&quot;/*
-  test -e &quot;$3&quot; || test -L &quot;$3&quot; &amp;&amp; return 1
+  if [ &quot;$2&quot; = .. ] ; then
+    test -e &quot;$3&quot; || test -L &quot;$3&quot; &amp;&amp; return 1
+  else 
+    test -e &quot;$2&quot; || test -L &quot;$2&quot; &amp;&amp; return 1
+  fi
   return 0
 }
 </code></pre>
 
-<p>The globs expand to <code>.</code> and <code>..</code> and all the files in the directory.</p>
-<p>It doesn't need as many forks and at most 4 commands are required.
-Oh, and it doesn't fail if it contains only a directory or a broken symlink.</p><h4 id="timestamp">Wed 10 Dec 2014 02:34:07 PM CET</h4>
+<p>The globs expand to <code>.</code> and <code>..</code> and all the files in the directory.
+The first parameter will <em>always</em> be <code>.</code>, but the second one can be anything.</p>
+<p>It doesn't need as many forks and at most 5 commands are required.
+Oh, and it doesn't fail if it contains only a directory or a broken symlink.</p><h4 id="timestamp">Wed 10 Dec 2014 10:53:17 PM CET</h4>
 
 <a href='../../' id='back'>Back</a>
 <div class='container' id='disqus_thread'></div>

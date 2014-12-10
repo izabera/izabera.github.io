@@ -32,13 +32,18 @@ I'd say this one fixes most of the problems
 ```
 is_empty () {
   set -- "$1"/.* "$1"/*
-  test -e "$3" || test -L "$3" && return 1
+  if [ "$2" = .. ] ; then
+    test -e "$3" || test -L "$3" && return 1
+  else 
+    test -e "$2" || test -L "$2" && return 1
+  fi
   return 0
 }
 ```
 
 The globs expand to `.` and `..` and all the files in the directory.
+The first parameter will _always_ be `.`, but the second one can be anything.
 
-It doesn't need as many forks and at most 4 commands are required.
+It doesn't need as many forks and at most 5 commands are required.
 Oh, and it doesn't fail if it contains only a directory or a broken symlink.
 
