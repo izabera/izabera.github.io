@@ -37,7 +37,7 @@ is_empty () {
 }
 ```
 
-The globs expand to `.` and `..`, followed by all the files in the directory.
+The globs expand to `.` and `..` and all the files in the directory.
 
 It doesn't need as many forks and at most 4 commands are required.
 Oh, and it doesn't fail if it contains only a directory or a broken symlink.
