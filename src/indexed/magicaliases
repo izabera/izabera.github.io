@@ -1,0 +1,43 @@
+Magic aliases
+=============
+
+When I read [this](http://www.chiark.greenend.org.uk/~sgtatham/aliases.html)
+I dropped my jaw.
+
+SO. FREAKING. COOL.
+
+I absolutely had to find a way to use it. And I did. Not sure if it's the
+best use I could make of it, but I like it:
+
+```
+pastebin-helper() {
+  history 1 | {
+    read _ _ command
+    dir=${PWD/#"$HOME"/\~\/} dir=${dir/\/}
+    {
+      printf '%s@%s %s $ %s\n' "$USER" "$HOSTNAME" "$dir" "$command"
+      eval "$command"
+      printf '\n------------ exit code %d ------------\n' $? 
+    } |& tee >(curl -sF 'pastebin=<-' http://pastebin | xclip)
+  }
+}
+alias cpastebin='pastebin-helper #'
+```
+
+Then type this in your shell:
+
+`cpastebin my command <<< with | pipes and  spaces > and redirections`
+
+It will post something like this in your favourite pastebin:
+
+```
+izabera@izanotebook ~/path $ my command <<< with | pipes and  spaces > and redirections
+OUTPUT OUTPUT OUTPUT
+OUTPUT OUTPUT OUTPUT
+OUTPUT OUTPUT OUTPUT
+OUTPUT OUTPUT OUTPUT
+------------ exit code 0 ------------
+```
+
+And the url will be copied to your clipboard! Isn't it nice?
+
