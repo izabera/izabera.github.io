@@ -1,108 +1,23 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html lang="en">
-  <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-  <title>izabera's blog - index</title>
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lobster">
-  <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Cabin">
-</head>
-<body>
-  <h1 id="title"><a href="/">izabera's blog</a></h1>
-<h1><a href='html/magic-aliases.html'>Magic aliases
-</a></h1>
-<h4 id="timestamp">Thu 11 Dec 2014 04:51:12 AM CET</h4>
+---
+layout: default
+---
 
-<p>
-When
-I
-read
-I
-dropped
-my
-jaw.
-<a href='html/magic-aliases.html'>(Read more)</a></p><hr><h1><a href='html/determining-if-a-directory-is-empty.html'>Determining if a directory is empty
-</a></h1>
-<h4 id="timestamp">Wed 10 Dec 2014 10:53:17 PM CET</h4>
+<div class="home">
 
-<p>
-There's
-nice
-page
-about
-various
-`sh`
-tricks.
-<a href='html/determining-if-a-directory-is-empty.html'>(Read more)</a></p><hr><h1><a href='html/sh-c-polyglot.html'>sh-C Polyglot
-</a></h1>
-<h4 id="timestamp">Mon 08 Dec 2014 02:25:51 PM CET</h4>
+  <h1 class="page-heading">Posts</h1>
 
-<p>
-A
-nice
-(mis)feature
-of
-POSIX
-shells
-is
-<a href='html/sh-c-polyglot.html'>(Read more)</a></p><hr><h1><a href='html/goto-in-bash.html'>Goto in Bash
-</a></h1>
-<h4 id="timestamp">Sun 07 Dec 2014 10:12:00 PM CET</h4>
+  <ul class="post-list">
+    {% for post in site.posts %}
+      <li>
+        <span class="post-meta">{{ post.date | date: "%b %-d, %Y" }}</span>
 
-<p>
-I've
-been
-playing
-around
-with
-Bash,
-and
-<a href='html/goto-in-bash.html'>(Read more)</a></p><hr><h1><a href='html/bash-can-sort-numbers-pretty-efficiently.html'>Bash can sort numbers pretty efficiently
-</a></h1>
-<h4 id="timestamp">Tue 02 Dec 2014 06:15:57 PM CET</h4>
+        <h2>
+          <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
+        </h2>
+      </li>
+    {% endfor %}
+  </ul>
 
-<p>
-I
-usually
-hang
-out
-in
-`#bash`
-on
-<a href='html/bash-can-sort-numbers-pretty-efficiently.html'>(Read more)</a></p><hr><h1><a href='html/restoring-after-the-fuckup.html'>Restoring after the fuckup
-</a></h1>
-<h4 id="timestamp">Mon 01 Dec 2014 07:49:42 AM CET</h4>
+  <p class="rss-subscribe">subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a></p>
 
-<p>
-I
-hope
-i'm
-not
-the
-only
-one
-<a href='html/restoring-after-the-fuckup.html'>(Read more)</a></p><hr><h1><a href='html/using-this-blog-platform.html'>Using this blog platform
-</a></h1>
-<h4 id="timestamp">Fri 07 Nov 2014 03:17:13 PM CET</h4>
-
-<p>
-Download
-it
-with
-`git
-clone
-http://github.com/izabera/izablog.git`.
-Now
-<a href='html/using-this-blog-platform.html'>(Read more)</a></p><hr><h1><a href='html/a-blog-on-github.html'>A blog on Github
-</a></h1>
-<h4 id="timestamp">Fri 07 Nov 2014 12:58:38 PM CET</h4>
-
-<p>
-The
-idea
-behind
-Github
-Pages
-is
-kewl.
-<a href='html/a-blog-on-github.html'>(Read more)</a></p><hr><p id="footer">Copyright © 2014 izabera | <a href="/html/about.html">About</a></p></body></html>
+</div>

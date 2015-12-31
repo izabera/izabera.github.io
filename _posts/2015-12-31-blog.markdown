@@ -1,0 +1,10 @@
+---
+layout: post
+title:  "blog"
+date:   2015-12-31 20:51:32
+---
+
+yay created a blog thingy
+{% highlight bash %}
+echo obligatory hello world
+{% endhighlight %}
