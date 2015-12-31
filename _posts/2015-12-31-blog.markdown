@@ -8,3 +8,6 @@ yay created a blog thingy
 {% highlight bash %}
 echo obligatory hello world
 {% endhighlight %}
+[this][1] looks dumb {% highlight c %} int marks['z' - 'a']; {% endhighlight %}
+
+[1]: http://git.2f30.org/ed/tree/ed.c?id=520a6bb3849813923d8ba7c9e7632dbafe71e6cf#n33
