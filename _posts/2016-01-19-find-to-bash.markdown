@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "bash sucks"
+title:  "find to bash"
 ---
 
 One of the reasons why bash is a pain to work with is that its
@@ -278,11 +278,19 @@ format.
 {% highlight bash %}
 daliasway () {
   find ././ |
-  awk 'BEGIN { q = "'\''"; getline; gsub(q, q "\\" q q); old = $0; printf q }
-       { gsub(q, q "\\" q q) }
-       /^\.\/\.\// { printf "%s" q " " q, old; old = $0; next }
-       { old = old RS $0 }
-       END { printf "%s" q, old }'
+
+# better awk code by waldner
+  awk -v q=\' -v ORS=" " '{ gsub(q, q "\\" q q) }
+                          /^\.\/\.\// { if (p) { print p q }; p = q $0; next }
+                          { p = p RS $0 }
+                          END { if(p){print p q} }'
+
+# my old awk code
+# awk 'BEGIN { q = "'\''"; getline; gsub(q, q "\\" q q); old = $0; printf q }
+#      { gsub(q, q "\\" q q) }
+#      /^\.\/\.\// { printf "%s" q " " q, old; old = $0; next }
+#      { old = old RS $0 }
+#      END { printf "%s" q, old }'
 }
 {% endhighlight %}
 (…that wasn't too easy).
