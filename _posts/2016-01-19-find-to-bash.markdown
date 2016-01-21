@@ -184,7 +184,7 @@ Our loyal friend, `sed`, comes in handy.  GNU `sed` can do this with its
 `'` to `'\''`.  Easy as cake:
 
 {% highlight bash %}
-find . -print0 | sed -z "s/'/'\\''/g;s/.*/'&'/"
+find . -print0 | sed -z "s/'/'\\\''/g;s/.*/'&'/"
 {% endhighlight %}
 
 The problem of course is that we still have embedded `NUL`s in the output.
@@ -192,14 +192,14 @@ We want to convert them to a separator that bash can use, like a space.
 Again, pretty easy task with very common tools.
 
 {% highlight bash %}
-find . -print0 | sed -z "s/'/'\\''/g;s/.*/'&'/" | tr "\0" " "
+find . -print0 | sed -z "s/'/'\\\''/g;s/.*/'&'/" | tr "\0" " "
 {% endhighlight %}
 
 Done!  Now let's create a function for this, and feed it to `eval`:
 
 {% highlight bash %}
 evallablefind () {
-  find "$@" -print0 | sed -z "s/'/'\\''/g;s/.*/'&'/" | tr "\0" " "
+  find "$@" -print0 | sed -z "s/'/'\\\''/g;s/.*/'&'/" | tr "\0" " "
 }
 
 eval "arr=( $(evallablefind) )"
@@ -228,7 +228,7 @@ ignore `NUL`s in command substitutions, so maybe there's a way to skip the
 `tr` step.  Let't change our code to add a space after each element:
 {% highlight bash %}
 evallablefind () {
-  find "$@" -print0 | sed -z "s/'/'\\''/g;s/.*/'&' /"
+  find "$@" -print0 | sed -z "s/'/'\\\''/g;s/.*/'&' /"
 }
 {% endhighlight %}
 
