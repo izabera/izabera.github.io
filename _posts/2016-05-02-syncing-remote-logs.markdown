@@ -20,7 +20,8 @@ What about... a `fuse` filesystem?  Something that calls `rsync` every time you
 
 Wait, does `rsync` have a library?  Calling the actual executable from c seems
 weird...  Oh nice, there are a few projects, like
-http://librsync.sourceforge.net/ and https://github.com/librsync/librsync
+[http://librsync.sourceforge.net](http://librsync.sourceforge.net) and
+[https://github.com/librsync/librsync](https://github.com/librsync/librsync)
 
 Aww bummer, they only do the delta thingy one file at a time.  So I'll have to
 write my own directory tree walker.  Ok, there are `ftw()` and `fts()`...
