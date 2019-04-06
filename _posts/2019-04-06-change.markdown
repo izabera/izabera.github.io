@@ -1,0 +1,133 @@
+```
+18:41:25      +izabera | guys
+18:41:28      +izabera | you're friends
+18:41:33      +izabera | can i call you friends?
+18:41:44      +izabera | i'm hoping i can
+18:42:08      +izabera | you've known me for years
+18:43:21      +izabera | i've been part of the suckless and cat-v groups for a while
+18:43:43      +izabera | http://harmful.cat-v.org    someone has just linked me this website, which i knew alread
+18:43:44        bibibi | Encyclopedia of things considered harmful
+18:44:05      +izabera | i think i only ever read the tech-related content, and it was mostly funny and it didn't feel politically charged
+18:45:03      +izabera | but it's quite clearly advocating for some far right libertarian points
+18:45:52      +izabera | and i never realized it while i was an active part of those communities
+18:48:09      +izabera | i don't think i was blind, i knew they were jerks...
+18:49:12         @osse | I think there's some sort of inherent connection between being all about open source and crypto and whatnot, and being either libertarian or some other form of skeptical towards the guvmin
+18:49:13         @osse | t
+18:49:21         @osse | I read some article about it a few years ago. I can see if I find it
+18:49:29      +izabera | yeah maybe
+18:49:57      +izabera | but they're shitheads and i was one of them
+18:50:13      +izabera | and i've been a bitch in #bash since like forever
+18:50:32      +izabera | and elsewhere too, but that's where you've seen me
+18:50:43         @osse | and some of the successful silicon valley types are libertarian too, like elon musk and the other paypal dude and the uber dude
+18:52:10      +izabera | i want to be a different person
+18:52:22         @osse | What do you mean exactly by saying you were one of them?
+18:52:45      +izabera | i contributed code to suckless
+18:52:53      +izabera | i was on those mailing lists and irc channels
+18:53:19      +izabera | i had the same attitude as everyone else
+18:54:31         @osse | i'm no expert in political philosophy or anything, but I am pretty sure it would be a very un-libertarian stance by the leaders of those communities to expect contributors and others to share the same libertarian ideas
+18:54:37         @osse | individualism and all that
+18:55:19      +izabera | that's not what happened
+18:56:33      +izabera | it's more like being in that group, reading those conversations over and over, mostly by people you respect because of their code
+18:56:41      +izabera | it has some kind of indoctrinating effect
+18:58:40          @emg | izabera: far right and libertarian are different things
+18:58:49      +izabera | are they tho
+18:58:55          @emg | definitely
+18:58:59      +izabera | yeah but are they tho
+18:59:05          @emg | definitely
+18:59:09      +izabera | thanks
+18:59:19          @emg | np
+18:59:44          @emg | what's on cat-v.org that you don't like? I haven't dug into it
+19:00:06         @osse | there's the "everybody should be able to buy heroin without taxes" right, and there's the "let's kick out all of the muslims, shave our heads and use weird logos that definitely don't look like svastikas" right
+19:00:48      +izabera | http://harmful.cat-v.org/economics/   pretty much everything in this section
+19:00:49        bibibi | Economics
+19:01:06      +izabera | http://harmful.cat-v.org/political-correctness/  this
+19:01:06          @emg | huh, didn't know they had an economics portion
+19:01:06        bibibi | Political Correctness
+19:01:15      +izabera | http://harmful.cat-v.org/society/   pretty much everything in this section
+19:01:16        bibibi | society
+19:01:51         @osse | At least in Europe when people talk about the far right they mean those extreme political parties that are getting traction in e.g. Hungary, Greece and France
+19:02:00      +izabera | there's a bunch of "interesting" things
+19:02:32         @osse | and they aren't very far right economically speaking, as far as I know
+19:02:52      +izabera | i'm quite sure that when i was in those groups, at some point i too was arguing against political correctness, censorship on the internet, and about any project with a CoC
+19:03:04      +izabera | which is frightening
+19:03:56          @emg | why is that frightening?
+19:07:01         @osse | my guess: because she doesn't really agree but got carried away
+19:07:53      +izabera | no, it's more because it proves that at the time i didn't see the need to limit the toxicity in arguments, which has led me to be an harmful piece of shit around others for years.  and i DID agree
+19:08:38      +izabera | i don't agree now, but i agreed at the time
+19:08:45      +izabera | which is the frightening part
+19:08:48          @emg | izabera: is there a portable way to get a signal ever 1/60 of a second? the alarm(3p) function takes integer seconds
+19:09:11      +izabera | a loop with usleep?
+19:09:22          @emg | izabera: limiting other people from being toxic and limiting yourself from being toxic are two very different things
+19:09:38          @emg | izabera: I was trying to avoid sleeping, just wanted to wait for a signal :-/
+19:09:48      +izabera | pause?
+19:10:08         @osse | does it count as portable if you write various non-portable implementations in #ifdefs ?
+19:10:12          @emg | but I want to setup that signal to happen at 60Hz
+19:10:30          @emg | osse: at that point I'd just do glibc and not worry about it, but if it can be portable I'll stick to portable
+19:11:19          @emg | oh! timer_create(3p) maybe
+19:11:27      +izabera | oh right that's posix
+19:11:40      +izabera | setitimer too i think?
+19:12:03          @emg | hmm timer_create() timers don't repeat, they're one off
+19:12:06          @emg | I'll read setitimer
+19:12:37          @emg | oh that looks right
+19:12:38          @emg | thanks
+19:14:24      +izabera | i think i've even argued here against safe spaces in e.g. campuses
+19:14:44         @osse | To the logs!
+19:14:46      +izabera | i've definitely argued somewhere against the firing of james damore from google
+19:15:00      +izabera | which is scary recent
+19:15:43          @emg | who is he?
+19:15:50      +izabera | ~google james damore
+19:15:52        bibibi | Google's Ideological Echo Chamber - Wikipedia       https://en.wikipedia.org/wiki/Google%27s_Ideological_Echo_Chamber
+19:15:52        bibibi | James Damore (@JamesADamore) | Twitter       https://twitter.com/jamesadamore?lang=en
+19:15:52        bibibi | James Damore is moving his lawsuit against Google out of court ...       https://www.theverge.com/2018/10/17/17989804/james-damore-google-co
+19:15:56          @emg | and what's your definition of a safe space?
+19:16:12          @emg | ah the guy who wrote the big letter about sexism in google?
+19:16:27      +izabera | yes him
+19:16:31          @emg | and brought in all these unnecessary political things to it
+19:16:43         @osse | All I know is that emg's dad is a software justice warrior
+19:16:45      +izabera | limiting the toxicity level for anyone is what ops/mod are supposed to be for
+19:17:12      +izabera | and i've definitely being inflammatory in #bash
+19:17:17      +izabera | why am i still op?
+19:17:28          @emg | that you have, but not lately
+19:17:35          @emg | I haven't seen an extraneous kicks lately
+19:19:22      +izabera | why did i fit that well in that crowd without realizing how harmful it is?
+19:19:27          @emg | izabera: I disagree with a lot of that guy wrote, and think he did a terrible job at trying to make his point, but I don't think that letter alone should be enough to get him fired. If he has a history of problems at the company then I can definitely see it pushing him past the edge
+19:19:42      +izabera | or rather, why did i see it being harmful and it wasn't an issue for me
+19:21:43      +izabera | i don't mean to imply that i became a shithead because of suckless
+19:21:54          @emg | I understand
+19:22:06      +izabera | there's many more communities too, that i also don't want to blame
+19:22:21      +izabera | such as /g/ or some rubik forums
+19:22:58      +izabera | saying that i've been shaped by being there would be disingenuous
+19:23:41      +izabera | i likely was a piece of shit to begin with and they just hosted me for a while
+19:24:08          @emg | being complacent also is different from being an asshole yourself
+19:24:23          @emg | both may require some introspection, but they are different pieces
+19:25:37      +izabera | i was a piece of shit on wizard101 forums too
+19:26:20      +izabera | how many years did i spend as such a terrible human being?
+19:26:50      +izabera | when did i join #bash?
+19:27:32          @emg | I'd say it doesn't matter, and obsessing over the past is the wrong path. Think of it like driving a car. You should check the rear view mirror occasionally but staring at it will make you crash
+19:27:46          @emg | acknowledge and improve
+19:28:49      +izabera | not sure.  i think it does matter
+19:30:34      +izabera | i need to avoid ever being that person again
+19:31:02          @emg | and you can do that without focussing on how long you were like that or what exactly you did
+19:38:33      +izabera | there's another thing that worries me
+19:39:03      +izabera | i didn't see the issue in such behaviours at the time, but i do see it now
+19:39:20      +izabera | did i just grow up or is it because of the hormones?
+19:40:11      +izabera | is it being less on the internet and having a job and being surrounded with people irl?
+19:42:04      +izabera | if it is the hormones, does that mean that i'm becoming someone else and i wasn't trans to begin with?
+19:46:16      +izabera | i've started hrt on jun 25th 2018.  by that time i've had had almost a couple of years of uninterrupted stable employment, albeit at 3 different places
+19:49:29      +izabera | just 4 days before that i've had a heated argument on slack at work over strlcpy and openbsd
+19:50:08      +izabera | where i ended up insulting the other side of the argument, and the openbsd devs (sorry phy1729)
+19:50:41      +izabera | so it's the hormones
+19:51:09          @emg | s/it's/it may be/
+19:51:46      +izabera | seems likely tho
+19:58:56      +izabera | what to make of it, assuming that i'm changing because of the hormones?
+19:59:28          @emg | wasn't that the idea?
+19:59:37      +izabera | idk
+19:59:38          @emg | and don't you like who you are now better?
+19:59:56      +izabera | i do
+20:00:13      +izabera | i wasn't expecting personality changes tho
+20:00:17      +izabera | just physical ones
+20:00:45      +izabera | that was like the entire point of the transition
+20:01:14      +izabera | you know, "female soul in a male body" etc
+20:21:45      +izabera | ultimately i don't actually know if my personality is changing and if i'm really less of a bitch than i was before.  this whole hour of introspection might well be over nothing, and i might be patting myself on the back while still being the same shithead
+20:22:44      +izabera | but thanks for your help guys, much appreciated
+```
