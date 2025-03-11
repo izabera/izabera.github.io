@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChessGolf</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="start-screen" class="screen">
+        <h1>ChessGolf</h1>
+        <p>Navigate to the hole in as few moves as possible.</p>
+        <p>Your movement depends on the terrain you land on, and you can only move within the same terrain type (plus one space into a different terrain). Knights (on hills) can jump over obstacles as usual.</p>
+        <div id="legend">
+            <div class="piece-info">
+                <img src="assets/fairway.png" alt="Fairway">
+                <span>Fairway → Queen</span>
+            </div>
+            <div class="piece-info">
+                <img src="assets/green.png" alt="Green">
+                <span>Green → Rook</span>
+            </div>
+            <div class="piece-info">
+                <img src="assets/rough.png" alt="Rough">
+                <span>Rough → Bishop</span>
+            </div>
+            <div class="piece-info">
+                <img src="assets/hill.png" alt="Hill">
+                <span>Hill → Knight</span>
+            </div>
+            <div class="piece-info">
+                <img src="assets/sand.png" alt="Sand">
+                <span>Sand → Pawn</span>
+            </div>
+            <div class="piece-info">
+                <img src="assets/tree.png" alt="Tree">
+                <span>Tree → Cannot land</span>
+            </div>
+            <div class="piece-info">
+                <img src="assets/water.png" alt="Water">
+                <span>Water → Cannot land</span>
+            </div>
+            <div class="piece-info">
+                <img src="assets/hole.png" alt="Hole">
+                <span>Hole → Goal</span>
+            </div>
+        </div>
+        <button id="start-button">Start Game</button>
+    </div>
+
+    <div id="end-screen" class="screen" style="display: none;">
+        <h1>Congratulations!</h1>
+        <p>You completed the course in <span id="final-moves">0</span> moves.</p>
+        <button id="restart-button">Play Again</button>
+    </div>
+
+    <div class="container">
+        <div class="info-panel">
+            <div class="move-counter">Moves: <span id="move-count">0</span></div>
+        </div>
+        <div id="game-board"></div>
+    </div>
+
+    <script src="game.js"></script>
+</body>
+</html>
