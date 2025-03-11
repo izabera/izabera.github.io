@@ -48,7 +48,8 @@ const moveCountElement = document.getElementById('move-count');
 const startScreen = document.getElementById('start-screen');
 const endScreen = document.getElementById('end-screen');
 const startButton = document.getElementById('start-button');
-const restartButton = document.getElementById('restart-button');
+const playAgainButton = document.getElementById('play-again-button');
+const restartButton = document.getElementById('in-game-restart');
 const finalMovesElement = document.getElementById('final-moves');
 
 // Initialize the game
@@ -318,8 +319,17 @@ startButton.addEventListener('click', () => {
     initGame();
 });
 
-restartButton.addEventListener('click', () => {
+playAgainButton.addEventListener('click', () => {
     endScreen.style.display = 'none';
+    initGame();
+});
+
+restartButton.addEventListener('click', () => {
+    initGame();
+    updatePlayerPosition();
+});
+
+document.getElementById('in-game-restart').addEventListener('click', () => {
     initGame();
 });
 
