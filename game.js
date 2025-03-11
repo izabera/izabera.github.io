@@ -59,7 +59,7 @@ function initGame() {
 
     // Set the grid columns based on field width
     gameBoard.style.gridTemplateColumns = `repeat(${field[0].length}, var(--cell-size))`;
-    
+
     // Clear the board
     gameBoard.innerHTML = '';
 
@@ -68,27 +68,32 @@ function initGame() {
         for (let col = 0; col < field[row].length; col++) {
             const cell = document.createElement('div');
             cell.className = 'cell';
-            
+
+            // Add shaded class to alternating cells in a checkerboard pattern
+            if ((row + col) % 2 === 0) {
+                cell.classList.add('shaded');
+            }
+
             const terrainType = field[row][col];
             const terrain = terrainMapping[terrainType];
-            
+
             cell.style.backgroundImage = `url('assets/${terrain.name}.png')`;
             cell.dataset.row = row;
             cell.dataset.col = col;
             cell.dataset.terrain = terrainType;
-            
+
             cell.addEventListener('click', () => handleCellClick(row, col));
-            
+
             gameBoard.appendChild(cell);
         }
     }
 
     // Place the player
     updatePlayerPosition();
-    
+
     // Calculate valid moves based on starting position
     updateValidMoves();
-    
+
     // Reset move count
     moveCount = 0;
     moveCountElement.textContent = moveCount;
@@ -101,17 +106,17 @@ function updatePlayerPosition() {
     if (prevPlayer) {
         prevPlayer.remove();
     }
-    
+
     // Get the cell at player position
     const cell = getCellAt(playerPosition.row, playerPosition.col);
     if (!cell) return;
-    
+
     // Create and add player element
     const playerElement = document.createElement('div');
     playerElement.className = 'player';
     playerElement.style.backgroundImage = `url('assets/w${currentPiece}.png')`;
     cell.appendChild(playerElement);
-    
+
     // Scroll to player if needed
     cell.scrollIntoView({ behavior: 'smooth', block: 'center', inline: 'center' });
 }
@@ -120,9 +125,9 @@ function updatePlayerPosition() {
 function updateValidMoves() {
     // Clear previous valid moves
     clearValidMoves();
-    
+
     validMoves = [];
-    
+
     // Calculate moves based on current piece
     switch (currentPiece) {
         case 'Q': // Queen (fairway)
@@ -141,7 +146,7 @@ function updateValidMoves() {
             addPawnMoves();
             break;
     }
-    
+
     // Show valid moves
     showValidMoves();
 }
@@ -161,21 +166,21 @@ function addStraightMoves(straight, diagonal) {
         directions.push({ row: -1, col: 1 });  // Up-Right
         directions.push({ row: -1, col: -1 }); // Up-Left
     }
-    
+
     // Get the current terrain type
     const currentTerrainType = field[playerPosition.row][playerPosition.col];
-    
+
     // For each direction, add moves until hitting an obstacle, edge, or different terrain+1
     directions.forEach(dir => {
         let r = playerPosition.row + dir.row;
         let c = playerPosition.col + dir.col;
-        
+
         let encounteredDifferentTerrain = false;
-        
+
         while (isValidCell(r, c)) {
             const terrainType = field[r][c];
             const terrain = terrainMapping[terrainType];
-            
+
             // Check if we're entering a different terrain
             if (terrainType !== currentTerrainType) {
                 // If we've already encountered a different terrain, don't add this move
@@ -184,12 +189,12 @@ function addStraightMoves(straight, diagonal) {
                 }
                 encounteredDifferentTerrain = true;
             }
-            
+
             validMoves.push({ row: r, col: c });
-            
+
             // Stop if this is an obstacle or goal
             if (terrain.obstacle || terrain.goal) break;
-            
+
             r += dir.row;
             c += dir.col;
         }
@@ -204,11 +209,11 @@ function addKnightMoves() {
         { row: 1, col: -2 }, { row: 1, col: 2 },
         { row: 2, col: -1 }, { row: 2, col: 1 }
     ];
-    
+
     knightMoves.forEach(move => {
         const r = playerPosition.row + move.row;
         const c = playerPosition.col + move.col;
-        
+
         if (isValidCell(r, c)) {
             const terrain = terrainMapping[field[r][c]];
             if (!terrain.obstacle || terrain.goal) {
@@ -223,15 +228,15 @@ function addPawnMoves() {
     // Assuming "forward" is upward (decreasing row)
     const r = playerPosition.row - 1;
     const c = playerPosition.col;
-    
+
     if (isValidCell(r, c)) {
         const terrain = terrainMapping[field[r][c]];
         if (!terrain.obstacle || terrain.goal) {
             validMoves.push({ row: r, col: c });
         }
     }
-    
-    // For pawns, since they only move one square, the terrain restriction 
+
+    // For pawns, since they only move one square, the terrain restriction
     // doesn't affect their movement as they're already limited to one square
 }
 
@@ -241,14 +246,14 @@ function isValidCell(row, col) {
     if (row < 0 || row >= field.length || col < 0 || col >= field[0].length) {
         return false;
     }
-    
+
     const terrain = terrainMapping[field[row][col]];
-    
+
     // Check if it's an obstacle (except for goal)
     if (terrain.obstacle && !terrain.goal) {
         return false;
     }
-    
+
     return true;
 }
 
@@ -274,29 +279,29 @@ function clearValidMoves() {
 function handleCellClick(row, col) {
     // Check if this is a valid move
     const moveIndex = validMoves.findIndex(move => move.row === row && move.col === col);
-    
+
     if (moveIndex === -1) return; // Not a valid move
-    
+
     // Move the player
     playerPosition.row = row;
     playerPosition.col = col;
     moveCount++;
     moveCountElement.textContent = moveCount;
-    
+
     // Update piece based on new terrain
     const newTerrain = terrainMapping[field[row][col]];
-    
+
     // Check if reached the goal
     if (newTerrain.goal) {
         endGame();
         return;
     }
-    
+
     // Update current piece based on terrain
     if (newTerrain.piece) {
         currentPiece = newTerrain.piece;
     }
-    
+
     // Update player position and valid moves
     updatePlayerPosition();
     updateValidMoves();
