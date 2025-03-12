@@ -52,6 +52,12 @@ const playAgainButton = document.getElementById('play-again-button');
 const restartButton = document.getElementById('in-game-restart');
 const finalMovesElement = document.getElementById('final-moves');
 
+// Audio elements
+const moveSound = new Audio('assets/move.mp3');
+moveSound.volume = 0.5;
+const victorySound = new Audio('assets/victory.mp3');
+victorySound.volume = 0.5;
+
 // Initialize the game
 function initGame() {
     playerPosition = { row: 20, col: 3 }; // Starting position
@@ -288,6 +294,10 @@ function handleCellClick(row, col) {
     moveCount++;
     moveCountElement.textContent = moveCount;
 
+    // Play move sound
+    moveSound.currentTime = 0; // Reset sound to beginning in case it's still playing
+    moveSound.play();
+
     // Update piece based on new terrain
     const newTerrain = terrainMapping[field[row][col]];
 
@@ -314,6 +324,9 @@ function getCellAt(row, col) {
 
 // End the game
 function endGame() {
+    // Play victory sound
+    victorySound.play();
+
     finalMovesElement.textContent = moveCount;
     endScreen.style.display = 'flex';
 }
